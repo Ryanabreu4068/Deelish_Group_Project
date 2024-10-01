@@ -1,1 +1,12 @@
 this is hazzys
+
+My role is backend.
+I am responsible with dealing with the servers and json files of the project.
+I worked on setting up the files, and and starting the scripts of setting up the req and res
+for the server
+
+Biggest challenge today was  setting up github and learning the commands.
+
+My goals is to have the program functional to the mininum, then adding further content
+for the users. Having a functional submit button for the JSON files is my current priority.
+I will continue working on server side, making sure information is being sent to users.json
