@@ -38,13 +38,13 @@
 
     <script>
       document
-        .getElementById("updateForm")
+        .getElementById("login-form")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const currentName = document.getElementById("currentName").value;
-          const currentPowers = document.getElementById("currentPowers").value;
-          const newName = document.getElementById("newName").value;
-          const newPowers = document.getElementById("newPowers").value;
+          const firstName = document.getElementById("first-name").value;
+          const lastName = document.getElementById("last-name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
           try {
             const response = await fetch(
               `/update-user/${currentName}/${currentPowers}`,
