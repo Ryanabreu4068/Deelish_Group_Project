@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylsheet" href="">
+    <title>Contact Form</title>
+  </head>
+  <body>
+
+    <script>
+      document
+        .getElementById("updateForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const currentName = document.getElementById("currentName").value;
+          const currentPowers = document.getElementById("currentPowers").value;
+          const newName = document.getElementById("newName").value;
+          const newPowers = document.getElementById("newPowers").value;
+          try {
+            const response = await fetch(
+              `/update-user/${currentName}/${currentPowers}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ newName, newPowers }),
+              }
+            );
+            const data = await response.json();
+            console.log(data);
+            renderUsers();
+            // alert("Message is: " + data.message);
+          } catch (error) {
+            alert("Error updating user: " + error.message);
+          }
+        });
+      async function fetchUsers() {
+        try {
+          const response = await fetch("/users");
+          if (!response.ok) {
+            throw new Error("Error fetching users. Response not ok");
+          }
+          // there could be an error getting response/fetching the endpoint
+          console.log(response);
+          const users = await response.json();
+          // there could be an error parsing the response
+          // console.log(users);
+          return users;
+        } catch (error) {
+          console.error("There was a problem");
+          console.error(error);
+        }
+      }
+
+      async function renderUsers() {
+        const tableBody = document.getElementById("userTableBody");
+        tableBody.innerHTML = "";
+        try {
+          const users = await fetchUsers();
+          if (Array.isArray(users) && users.length > 0) {
+            users.forEach((user) => {
+              const row = `<tr><td>         ${user.name}: </td><td>${user.powers}</td></tr>`;
+              tableBody.innerHTML += row;
+            });
+          }
+        } catch (error) {}
+      }
+
+      document.getElementById("delete-user")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("obliterate-hero").value;
+        const powers = document.getElementById("delete-powers").value;
+        try{
+          const response = await fetch(`/user/${name}/${powers}`, {
+            method: "DELETE",
+          });
+          if(!response.ok) {
+            throw new Error('Error with network');
+          }
+          const data = await response.text();
+          renderUsers();
+          console.log(data);
+        } catch(error) {
+          console.error("something went worng" + error.message);
+        }
+      });
+      async function renderUsers() {
+        const tableBody = document.getElementById("userTableBody");
+        tableBody.innerHTML = "";
+        try {
+          const users = await fetchUsers();
+          if (Array.isArray(users) && users.length > 0) {
+            users.forEach((user) => {
+              const row = `<tr><td>${user.name}</td><td>${user.powers}</td></tr>`;
+              tableBody.innerHTML += row;
+            });
+          }
+        } catch (error) {}
+      }
+      document.addEventListener("DOMContentLoaded", renderUsers);
+    </script>
+  </body>
+</html>
