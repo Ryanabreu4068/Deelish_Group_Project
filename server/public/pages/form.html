@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylsheet" href="" />
+    <title>Contact Form</title>
+  </head>
+  <body>
+<<<<<<< HEAD
+ 
+=======
+    <h1>form sign up</h1>
+    <!-- submitting sign up info -->
+    <form action="/submit-form" method="POST">
+      <label for="first-name">First Name</label>
+      <input type="text" name="first-name" id="first-name" /> <br />
+
+      <label for="last-name">Last Name</label>
+      <input type="text" name="last-name" id="last-name" /> <br />
+
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" />
+
+      <label for="password">password</label>
+      <input type="text" name="password" id="password" />
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <h1>log in</h1>
+    <!-- give id so we can call it to check info from json file -->
+    <form id="login-form">
+      <label for="email-login">Enter email login</label>
+      <input type="text" name="email-login" id="email-login" />
+
+      <label for="password-login">Enter password Login</label>
+      <input type="text" name="password-login" id="password-login" />
+      <button type="submit">Login</button>
+    </form>
+>>>>>>> e07900e0c56c696483b4ff918d23ad4f93b51269
+
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const firstName = document.getElementById("first-name").value;
+          const lastName = document.getElementById("last-name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          try {
+            const response = await fetch(
+              `/update-user/${currentName}/${currentPowers}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ newName, newPowers }),
+              }
+            );
+            const data = await response.json();
+            console.log(data);
+            renderUsers();
+            // alert("Message is: " + data.message);
+          } catch (error) {
+            alert("Error updating user: " + error.message);
+          }
+        });
+      async function fetchUsers() {
+        try {
+          const response = await fetch("/users");
+          if (!response.ok) {
+            throw new Error("Error fetching users. Response not ok");
+          }
+          // there could be an error getting response/fetching the endpoint
+          console.log(response);
+          const users = await response.json();
+          // there could be an error parsing the response
+          // console.log(users);
+          return users;
+        } catch (error) {
+          console.error("There was a problem");
+          console.error(error);
+        }
+      }
+
+      async function renderUsers() {
+        const tableBody = document.getElementById("userTableBody");
+        tableBody.innerHTML = "";
+        try {
+          const users = await fetchUsers();
+          if (Array.isArray(users) && users.length > 0) {
+            users.forEach((user) => {
+              const row = `<tr><td>         ${user.name}: </td><td>${user.powers}</td></tr>`;
+              tableBody.innerHTML += row;
+            });
+          }
+        } catch (error) {}
+      }
+
+      document
+        .getElementById("delete-user")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("obliterate-hero").value;
+          const powers = document.getElementById("delete-powers").value;
+          try {
+            const response = await fetch(`/user/${name}/${powers}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              throw new Error("Error with network");
+            }
+            const data = await response.text();
+            renderUsers();
+            console.log(data);
+          } catch (error) {
+            console.error("something went worng" + error.message);
+          }
+        });
+      async function renderUsers() {
+        const tableBody = document.getElementById("userTableBody");
+        tableBody.innerHTML = "";
+        try {
+          const users = await fetchUsers();
+          if (Array.isArray(users) && users.length > 0) {
+            users.forEach((user) => {
+              const row = `<tr><td>${user.name}</td><td>${user.powers}</td></tr>`;
+              tableBody.innerHTML += row;
+            });
+          }
+        } catch (error) {}
+      }
+      document.addEventListener("DOMContentLoaded", renderUsers);
+    </script>
+  </body>
+</html>
