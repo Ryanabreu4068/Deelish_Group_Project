@@ -1,2 +1,18 @@
-hello team we are ballin
-testing tsting
+PERSONAL LOG 10-1-24
+//What is your role?
+My role is the leader.
+
+//What are the responsibilities of your role?
+Being the person to keep my team on track.
+
+//What did you do today?
+I was able to make sure my team was able to access the git repo I made today.
+
+//what was the biggest challeng?
+The biggest challenge was working with git and making sure my team was able to pull and push.
+
+
+
+
+
+ My goal in the future is to keep my team on task and make sure we are coordinated and on the same page so we arent working on different tasks when we are focusing on one.
