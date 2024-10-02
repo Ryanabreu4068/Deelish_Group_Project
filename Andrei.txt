@@ -1,0 +1,5 @@
+This is Andrei
+
+My role is the tester of the website
+What I did todays was that I helped Alex with the design logo
+then I helped my group on how to set up the git command so that they can push and pull our codes.
