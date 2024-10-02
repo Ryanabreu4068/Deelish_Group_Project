@@ -47,13 +47,13 @@
           const password = document.getElementById("password").value;
           try {
             const response = await fetch(
-              `/update-user/${currentName}/${currentPowers}`,
+              `/update-user/${firstName}/${lastName}`,
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ newName, newPowers }),
+                body: JSON.stringify({ firstName, lastName }),
               }
             );
             const data = await response.json();
