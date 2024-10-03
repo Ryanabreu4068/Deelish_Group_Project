@@ -1,50 +1,12 @@
 [
   {
-    "email": "",
-    "password": ""
+    "username": "a",
+    "email": "a@a.com",
+    "password": "a"
   },
   {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "alexreyyy1234@gmail.com",
-    "password": "asdf"
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "",
-    "password": ""
-  },
-  {
-    "email": "funtes@gmail.com",
+    "username": "Hazzy",
+    "email": "sfd@adf.com",
     "password": "3242342sdadf"
-  },
-  {
-    "email": "asdfsaldfj@gmail",
-    "password": "asdfsadf"
   }
 ]
