@@ -46,7 +46,7 @@ app.get('/form', (req, res) => {
 // Form submission route
 app.post('/submit-form', async (req, res) => {
     try {
-        const { name, powers} = req.body;
+        const { userName, email, password} = req.body;
 
         // Read existing users from file
         let users = [];
@@ -60,10 +60,10 @@ app.post('/submit-form', async (req, res) => {
         }
 
         // Find or create user
-        let user = users.find(u => u.name === name && u.powers === powers);
+        let user = users.find(u => u.userName === userName && u.email === email && u.password === password);
 
-            user = { name, powers };
-            users.push(user);
+        user = { userName, email, password};
+        users.push(user);
         // Save updated users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
         res.redirect('/form');
