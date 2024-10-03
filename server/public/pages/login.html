@@ -36,15 +36,22 @@
     </form>
 
     <!-- The landing page or where people post info -->
-    <form action="/posting-page" method="POST">
-      <label for="food-name">Recipe</label>
-      <input type="text" name="food-name" id="food-name" />
+    <form action="/posting-page" method="POST" id="posting">
+      <label for="foodname">Recipe name</label>
+      <input type="text" name="foodname" id="foodname" />
 
       <label for="ingredients">Ingredients</label>
       <input type="text" name="ingredients" id="ingredients" />
 
       <label for="instructions">Instructions</label>
       <input type="text" name="instructions" id="instructions" />
+    </form>
+
+
+    <!-- Updating recipes -->
+    <form action="" method="">
+
+
     </form>
 
     <script>
@@ -93,6 +100,62 @@
         }
       }
 
+
+
+
+
+
+
+
+
+
+
+
+       document
+        .getElementById("posting")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const  foodName= document.getElementById("foodname").value;
+          console.log(foodName);
+          const ingredients = document.getElementById("ingredients").value;
+          const instructions = document.getElementById("instructions").value;
+          try {
+            const response = await fetch(
+              `/update-recipes/${foodName}/${ingredients}/${instructions}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ foodName, ingredients, instructions }),
+              }
+            );
+            const data = await response.json();
+            console.log(data);
+            renderUsers();
+            // alert("Message is: " + data.message);
+          } catch (error) {
+            alert("Error updating user: " + error.message);
+          }
+        });
+      async function fetchUsers() {
+        try {
+          const response = await fetch("/recipes");
+          if (!response.ok) {
+            throw new Error("Error fetching users. Response not ok");
+          }
+          // there could be an error getting response/fetching the endpoint
+          console.log(response);
+          const users = await response.json();
+          // there could be an error parsing the response
+          // console.log(users);
+          return users;
+        } catch (error) {
+          console.error("There was a problem");
+          console.error(error);
+        }
+      }
+
       // async function renderUsers() {
       //   const tableBody = document.getElementById("userTableBody");
       //   tableBody.innerHTML = "";
@@ -106,6 +169,10 @@
       //     }
       //   } catch (error) {}
       // }
+
+
+
+
 
       // document
       //   .getElementById("delete-user")
