@@ -16,3 +16,8 @@ fixed some of the form.html
 
 first task tommorrow?
 move my stuff from form.html into login, so brock can work on his part of the project
+
+
+10/3
+What did you accomplish today?
+fixed the signup, now it accepts users. started working on login, so that it'll only accept users from users.json file
