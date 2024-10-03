@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>form sign up</h1>
+
     <!-- submitting sign up info -->
     <form action="/submit-form" method="POST">
       <label for="username">username</label>  <br />
@@ -32,6 +33,18 @@
       <input type="text" name="password-login" id="password-login" /><br />
 
       <button type="submit">Login</button>
+    </form>
+
+    <!-- The landing page or where people post info -->
+    <form action="/posting-page" method="POST">
+      <label for="food-name">Recipe name</label>
+      <input type="text" name="food-name" id="food-name" />
+
+      <label for="ingredients">Ingredients</label>
+      <input type="text" name="ingredients" id="ingredients" />
+
+      <label for="instructions">Instructions</label>
+      <input type="text" name="instructions" id="instructions" />
     </form>
 
     <script>
