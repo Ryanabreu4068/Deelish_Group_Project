@@ -74,31 +74,31 @@ app.post('/submit-form', async (req, res) => {
 });
 
 // Update user route (currently just logs and sends a response)
-app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
-    try {
-        const { currentName, currentPowers } = req.params;
-        const { newName, newPowers } = req.body;
-        console.log('Current user:', { currentName, currentPowers });
-        console.log('New user data:', { newName, newPowers });
-        const data = await fs.readFile(dataPath, 'utf8');
-        if (data) {
-            let users = JSON.parse(data);
-            const userIndex = users.findIndex(user => user.name === currentName && user.powers === currentPowers);
-            console.log(userIndex);
-            if (userIndex === -1) {
-                return res.status(404).json({ message: "User not found" }) 
-            }
-            users[userIndex] = { ...users[userIndex], name: newName, powers: newPowers };
-            console.log(users);
-            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+// app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
+//     try {
+//         const { currentName, currentPowers } = req.params;
+//         const { newName, newPowers } = req.body;
+//         console.log('Current user:', { currentName, currentPowers });
+//         console.log('New user data:', { newName, newPowers });
+//         const data = await fs.readFile(dataPath, 'utf8');
+//         if (data) {
+//             let users = JSON.parse(data);
+//             const userIndex = users.findIndex(user => user.name === currentName && user.powers === currentPowers);
+//             console.log(userIndex);
+//             if (userIndex === -1) {
+//                 return res.status(404).json({ message: "User not found" }) 
+//             }
+//             users[userIndex] = { ...users[userIndex], name: newName, powers: newPowers };
+//             console.log(users);
+//             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
 
-            res.status(200).json({ message: `You sent ${newName} and ${newPowers}` });
-        }
-    } catch (error) {
-        console.error('Error updating user:', error);
-        res.status(500).send('An error occurred while updating the user.');
-    }
-});
+//             res.status(200).json({ message: `You sent ${newName} and ${newPowers}` });
+//         }
+//     } catch (error) {
+//         console.error('Error updating user:', error);
+//         res.status(500).send('An error occurred while updating the user.');
+//     }
+// });
 
 app.delete('/user/:name/:powers', async (req, res) => {
     try {
