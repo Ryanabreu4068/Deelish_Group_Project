@@ -39,14 +39,14 @@ app.get('/users', async (req, res) => {
 });
 
 // Form route
-app.get('/form', (req, res) => {
-    res.sendFile('pages/form.html', { root: serverPublic });
+app.get('/login', (req, res) => {
+    res.sendFile('pages/login.html', { root: serverPublic });
 });
 
 // Form submission route
 app.post('/submit-form', async (req, res) => {
     try {
-        const { userName, email, password} = req.body;
+        const { userName, email, password } = req.body;
 
         // Read existing users from file
         let users = [];
@@ -62,11 +62,11 @@ app.post('/submit-form', async (req, res) => {
         // Find or create user
         let user = users.find(u => u.userName === userName && u.email === email && u.password === password);
 
-        user = { userName, email, password};
+        user = { userName, email, password };
         users.push(user);
         // Save updated users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
-        res.redirect('/form');
+        res.redirect('/login');
     } catch (error) {
         console.error('Error processing form:', error);
         res.status(500).send('An error occurred while processing your submission.');
@@ -86,7 +86,7 @@ app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
             const userIndex = users.findIndex(user => user.name === currentName && user.powers === currentPowers);
             console.log(userIndex);
             if (userIndex === -1) {
-                return res.status(404).json({ message: "User not found" }) 
+                return res.status(404).json({ message: "User not found" })
             }
             users[userIndex] = { ...users[userIndex], name: newName, powers: newPowers };
             console.log(users);
@@ -100,7 +100,7 @@ app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
     }
 });
 
-app.delete('/user/:name/:powers', async (req, res) => {
+app.delete('/user/:name/:email', async (req, res) => {
     try {
         // console.log req.params
         // console.log(req.params);
@@ -119,7 +119,7 @@ app.delete('/user/:name/:powers', async (req, res) => {
             return res.status(404).send('User data not found')
         }
         // cache the userIndex based on a matching name and email
-        const userIndex = users.findIndex(user => user.name === name && user.powers === powers);
+        const userIndex = users.findIndex(user => user.name === name && user.email === email && user.password === password);
         console.log(userIndex);
         if (userIndex === -1) {
             return res.status(404).send(' Hero not found');
