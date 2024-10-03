@@ -46,7 +46,7 @@ app.get('/login', (req, res) => {
 // Form submission route
 app.post('/submit-form', async (req, res) => {
     try {
-        const { userName, email, password } = req.body;
+        const { username, email, password } = req.body;
 
         // Read existing users from file
         let users = [];
@@ -58,12 +58,14 @@ app.post('/submit-form', async (req, res) => {
             console.error('Error reading user data:', error);
             users = [];
         }
-
+        let user;
         // Find or create user
-        let user = users.find(u => u.userName === userName && u.email === email && u.password === password);
-
-        user = { userName, email, password };
-        users.push(user);
+        user = users.find(u => u.username === username && u.email === email && u.password === password);
+        if (user) { }
+        else {
+            user = { username, email, password };
+            users.push(user);
+        }
         // Save updated users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
         res.redirect('/login');
@@ -136,8 +138,8 @@ app.post('/submit-form', async (req, res) => {
 // });
 
 
-            // Start the server
-            const PORT = process.env.PORT || 3000;
-            app.listen(PORT, () => {
-                console.log(`Server is running on http://localhost:${PORT}`);
-            });
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
