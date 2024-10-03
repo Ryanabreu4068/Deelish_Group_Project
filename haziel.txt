@@ -19,5 +19,17 @@ move my stuff from form.html into login, so brock can work on his part of the pr
 
 
 10/3
+
+do you beleive your giving your best effort to the team?
+yes, I am trying. Even if it means mulitple errors on the servers, I'm still trying.
+
+one way you hope to improve by end of the week?
+functional login and sign up page, and hopefully get to help brock with his work too
+
+one technical challenge that kept you from moving forward?
+Understanding backend in a deeper level. It makes a little more sense now.
+
+1 way to support your team?
+giving better directions, better communitcation
 What did you accomplish today?
 fixed the signup, now it accepts users. started working on login, so that it'll only accept users from users.json file
