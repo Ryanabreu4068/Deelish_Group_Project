@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deelish</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+  
+    
+    <h1>form sign up</h1>
+    submitting sign up info
+    <form action="./submit-form" method="POST">
+      <label for="first-name">First Name</label>
+      <input type="text" name="first-name" id="first-name" /> <br />
+
+      <label for="last-name">Last Name</label>
+      <input type="text" name="last-name" id="last-name" /> <br />
+
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" />
+
+      <label for="password">password</label>
+      <input type="text" name="password" id="password" />
+
+      <input type="submit" value="Submit" />
+    </form>
+
+    <h1>log in</h1>
+    give id so we can call it to check info from json file
+    <form id="login-form">
+      <label for="email-login">Enter email login</label>
+      <input type="text" name="email-login" id="email-login" />
+
+      <label for="password-login">Enter password Login</label>
+      <input type="text" name="password-login" id="password-login" />
+      <button type="submit">Login</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const firstName = document.getElementById("first-name").value;
+          const lastName = document.getElementById("last-name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+        });
+    </script>
+  </body>
+</html>
