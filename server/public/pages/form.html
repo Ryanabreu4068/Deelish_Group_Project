@@ -30,7 +30,7 @@
 
       <label for="password-login">Enter password Login</label><br />
       <input type="text" name="password-login" id="password-login" /><br />
-      
+
       <button type="submit">Login</button>
     </form>
 
@@ -40,6 +40,7 @@
         .addEventListener("submit", async (e) => {
           e.preventDefault();
           const userName = document.getElementById("username").value;
+          console.log(userName);
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
           try {
@@ -93,40 +94,40 @@
         } catch (error) {}
       }
 
-      document
-        .getElementById("delete-user")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const name = document.getElementById("obliterate-hero").value;
-          const powers = document.getElementById("delete-powers").value;
-          try {
-            const response = await fetch(`/user/${name}/${powers}`, {
-              method: "DELETE",
-            });
-            if (!response.ok) {
-              throw new Error("Error with network");
-            }
-            const data = await response.text();
-            renderUsers();
-            console.log(data);
-          } catch (error) {
-            console.error("something went worng" + error.message);
-          }
-        });
-      async function renderUsers() {
-        const tableBody = document.getElementById("userTableBody");
-        tableBody.innerHTML = "";
-        try {
-          const users = await fetchUsers();
-          if (Array.isArray(users) && users.length > 0) {
-            users.forEach((user) => {
-              const row = `<tr><td>${user.name}</td><td>${user.powers}</td></tr>`;
-              tableBody.innerHTML += row;
-            });
-          }
-        } catch (error) {}
-      }
-      document.addEventListener("DOMContentLoaded", renderUsers);
+      // document
+      //   .getElementById("delete-user")
+      //   .addEventListener("submit", async (e) => {
+      //     e.preventDefault();
+      //     const name = document.getElementById("obliterate-hero").value;
+      //     const powers = document.getElementById("delete-powers").value;
+      //     try {
+      //       const response = await fetch(`/user/${name}/${powers}`, {
+      //         method: "DELETE",
+      //       });
+      //       if (!response.ok) {
+      //         throw new Error("Error with network");
+      //       }
+      //       const data = await response.text();
+      //       renderUsers();
+      //       console.log(data);
+      //     } catch (error) {
+      //       console.error("something went worng" + error.message);
+      //     }
+      //   });
+      // async function renderUsers() {
+      //   const tableBody = document.getElementById("userTableBody");
+      //   tableBody.innerHTML = "";
+      //   try {
+      //     const users = await fetchUsers();
+      //     if (Array.isArray(users) && users.length > 0) {
+      //       users.forEach((user) => {
+      //         const row = `<tr><td>${user.name}</td><td>${user.powers}</td></tr>`;
+      //         tableBody.innerHTML += row;
+      //       });
+      //     }
+      //   } catch (error) {}
+      // }
+      // document.addEventListener("DOMContentLoaded", renderUsers);
     </script>
   </body>
 </html>
