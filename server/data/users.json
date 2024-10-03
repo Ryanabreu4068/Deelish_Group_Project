@@ -1,9 +1,5 @@
 [
   {
-    "email": "aaronjespinoza2005@gmail.com",
-    "password": "asdf"
-  },
-  {
     "email": "",
     "password": ""
   },
@@ -26,5 +22,21 @@
   {
     "email": "alexreyyy1234@gmail.com",
     "password": "asdf"
+  },
+  {
+    "email": "",
+    "password": ""
+  },
+  {
+    "email": "",
+    "password": ""
+  },
+  {
+    "email": "",
+    "password": ""
+  },
+  {
+    "email": "",
+    "password": ""
   }
 ]
