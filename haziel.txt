@@ -10,3 +10,9 @@ Biggest challenge today was  setting up github and learning the commands.
 My goals is to have the program functional to the mininum, then adding further content
 for the users. Having a functional submit button for the JSON files is my current priority.
 I will continue working on server side, making sure information is being sent to users.json
+
+what did you accomplish today?
+fixed some of the form.html
+
+first task tommorrow?
+move my stuff from form.html into login, so brock can work on his part of the project
