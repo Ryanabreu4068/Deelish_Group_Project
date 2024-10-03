@@ -10,6 +10,7 @@ const app = express();
 // Define paths
 const clientPath = path.join(__dirname, '..', 'client/src');
 const dataPath = path.join(__dirname, 'data', 'users.json');
+const fooddataPath = path.join(__dirname, 'data', 'recipes.json');
 const serverPublic = path.join(__dirname, 'public');
 // Middleware setup
 app.use(express.static(clientPath)); // Serve static files from client directory
@@ -72,6 +73,38 @@ app.post('/submit-form', async (req, res) => {
         res.status(500).send('An error occurred while processing your submission.');
     }
 });
+
+
+app.post('/posting-page', async (req, res) => {
+    try {
+        const {foodname, ingredients, instructions } = req.body;
+
+        // Read existing recipes from the file
+        let recipes = [];
+        try {
+            const data = await fs.readFile(fooddataPath, 'utf8');
+            recipes = JSON.parse(data);
+        } catch (error) {
+            // If file doesn't exist or is empty, start with an empty array
+            console.error('Error reading user data:', error);
+            recipes = [];
+        }
+
+        // Find or create a recipe
+        let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions);
+
+        recipe = { foodname, ingredients, instructions };
+        recipes.push(recipe);
+        // Save updated recipes
+        await fs.writeFile(dataPath, JSON.stringify(recipes, null, 2));
+        res.redirect('/login');
+    } catch (error) {
+        console.error('Error processing form:', error);
+        res.status(500).send('An error occurred while processing your submission.');
+    }
+});
+
+
 
 // Update user route (currently just logs and sends a response)
 // app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
