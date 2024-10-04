@@ -47,42 +47,35 @@
       <input type="text" name="instructions" id="instructions" />
     </form>
 
-
     <!-- Updating recipes -->
-    <form action="" method="">
-
-
-    </form>
+    <form action="" method=""></form>
 
     <script>
-      
-      document
-        .getElementById("")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const userName = document.getElementById("username").value;
-          console.log(userName);
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-          try {
-            const response = await fetch(
-              `/update-user/${userName}/${email}/${password}`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userName, email, password }),
-              }
-            );
-            const data = await response.json();
-            console.log(data);
-            renderUsers();
-            // alert("Message is: " + data.message);
-          } catch (error) {
-            alert("Error updating user: " + error.message);
-          }
-        });
+      document.getElementById("").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const userName = document.getElementById("username").value;
+        console.log(userName);
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        try {
+          const response = await fetch(
+            `/update-user/${userName}/${email}/${password}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userName, email, password }),
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+          renderUsers();
+          // alert("Message is: " + data.message);
+        } catch (error) {
+          alert("Error updating user: " + error.message);
+        }
+      });
       async function fetchUsers() {
         try {
           const response = await fetch("/users");
@@ -100,42 +93,55 @@
           console.error(error);
         }
       }
+
+      // all this below is for the sign in
+
+      document.getElementById("").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const emailLogin = document.getElementById("email-login").value;
+        const passwordLogin = document.getElementById("password-login").value;
+        try {
+          const response = await fetch(
+            `/update-user/${userName}/${email}/${password}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userName, email, password }),
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+          renderUsers();
+          // alert("Message is: " + data.message);
+        } catch (error) {
+          alert("Error updating user: " + error.message);
+        }
+      });
+
       // make a find user function, for the login
       function findUserLogin(name, email, password) {
         // method: get, to retrieve data from users.json
 
-      
-
         // filter out data from submit button
-        return users.filter(user => user.city === city);
+        return users.filter((user) => user.city === city);
         var mydata = JSON.parse(data);
         // make a if else statement to check if user exist
         // throw an error, saying user doesnt exist
 
         // method: post to existingUser.json
-        // method: delete to remove user from 
+        // method: delete to remove user from
 
         // OR user localStorage or sessionStorage
         // use local storage since data will always be there
-
       }
 
-
-
-
-
-
-
-
-
-
-
-
-       document
+      document
         .getElementById("posting")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const  foodName= document.getElementById("foodname").value;
+          const foodName = document.getElementById("foodname").value;
           console.log(foodName);
           const ingredients = document.getElementById("ingredients").value;
           const instructions = document.getElementById("instructions").value;
@@ -189,10 +195,6 @@
       //     }
       //   } catch (error) {}
       // }
-
-
-
-
 
       // document
       //   .getElementById("delete-user")
