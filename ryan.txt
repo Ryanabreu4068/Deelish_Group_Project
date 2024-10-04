@@ -16,3 +16,16 @@ The biggest challenge was working with git and making sure my team was able to p
 
 
  My goal in the future is to keep my team on task and make sure we are coordinated and on the same page so we arent working on different tasks when we are focusing on one.
+
+10-3-24
+//Do you believe you are giving your best effort to your team?
+Yes I am
+
+// What is one way you hope to improve your site by the end of the week?
+the home page im hoing to have the navbar and overall skeleton of the site done
+
+//1 technical challenge?
+conflicts with everyone changing things def delays alot of our work.
+
+//1 way to supporrt your team?
+do my part
