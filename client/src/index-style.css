@@ -86,3 +86,8 @@ nav {
 .post {
   width: 300px;
 }
+.post-img {
+  background-image: url(./photos/food_hero_image.jpg);
+  width: 100%;
+  height: 200px;
+}
