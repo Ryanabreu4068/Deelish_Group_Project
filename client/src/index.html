@@ -15,8 +15,8 @@
             </div>
                 <div class="search">
                     <form action="#">
-                        <input type="text" placeholder="Find your next craving" name="Search">
-                    <button id="search-button" type="submit" >
+                        <input type="text" placeholder="What food are you looking for?" name="Search">
+                    <button id="search-button" type="submit" title="button" >
                         <div class="fa fa-search"></div></button>
                     </form>
                     </div>
@@ -24,8 +24,55 @@
             <p></p>
         </div>
       </div> 
-      <main>
+      <nav>
+              <svg class="hamburger-menu" width="72" height="61" viewBox="0 0 72 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect y="24.2069" width="72" height="12.4138" fill="#FF3D3D"/>
+                  <rect x="5" y="51" width="62" height="10" fill="#FF3D3D"/>
+                  <rect x="5" width="62" height="10" fill="#FF3D3D"/>
+              </svg>
 
+      </nav>
+      <div id="side-menu"> 
+              <svg class="hamburger-menu" width="72" height="68" viewBox="0 0 72 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect y="27.9011" width="72" height="12.4138" fill="#FF3D3D"/>
+                  <rect x="22.3003" width="72" height="9.93103" transform="rotate(60 22.3003 0)" fill="#FF3D3D"/>
+                  <rect x="13.6997" y="62.3538" width="72" height="9.93103" transform="rotate(-60 13.6997 62.3538)" fill="#FF3D3D"/>
+              </svg>  
+      </div>
+      
+      <main>
+        <div class="posts-container">
+            <div class="post">
+                <div class="title">
+
+                </div>
+
+                <div class="post-img">
+
+                </div>
+
+                <div class="post-instuctions">
+                    
+                </div>
+            </div>
+            
+        </div>
       </main>
+
+      <script>
+            const hamMenu = document.querySelectorAll('.hamburger-menu');
+            const sideMenu = document.getElementById('side-menu');
+
+            let isClicked = false;
+
+            hamMenu.forEach(menu => {
+                menu.addEventListener("click", function(e) {
+                    isClicked = !isClicked
+                    // console.log(isClicked)
+    
+                    isClicked? sideMenu.style.transform = "translate(50%,0)": sideMenu.style.transform = "translate(100%,0)";
+                })
+            })
+      </script>
 </body>
 </html>

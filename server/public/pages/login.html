@@ -74,6 +74,7 @@
   </div>
 
     <script>
+      
       document
         .getElementById("")
         .addEventListener("submit", async (e) => {
@@ -117,6 +118,25 @@
           console.error("There was a problem");
           console.error(error);
         }
+      }
+      // make a find user function, for the login
+      function findUserLogin(name, email, password) {
+        // method: get, to retrieve data from users.json
+
+      
+
+        // filter out data from submit button
+        return users.filter(user => user.city === city);
+        var mydata = JSON.parse(data);
+        // make a if else statement to check if user exist
+        // throw an error, saying user doesnt exist
+
+        // method: post to existingUser.json
+        // method: delete to remove user from 
+
+        // OR user localStorage or sessionStorage
+        // use local storage since data will always be there
+
       }
 
 
