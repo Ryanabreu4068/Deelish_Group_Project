@@ -40,6 +40,9 @@
       <label for="foodname">Recipe name</label>
       <input type="text" name="foodname" id="foodname" />
 
+      <label for="foodimage"></lable>
+      <input type="image" id = "foodimage" name = "foodimage" src="img_submit.gif" alt="Submit" width="48" height="48">
+
       <label for="ingredients">Ingredients</label>
       <input type="text" name="ingredients" id="ingredients" />
 
@@ -53,6 +56,22 @@
 
 
     </form>
+
+    <!-- Displaying the recipes -->
+    <div>
+    <h1></h1>
+    <table id="recipeTable">
+      <thead>
+        <tr>
+          <th>SuperHero</th>
+          <th>Powers</th>
+        </tr>
+      </thead>
+      <tbody id="recipeTableBody" style="border-spacing: 85px 10px;">
+        <!-- data of recipes will be here-->
+      </tbody>
+    </table>
+  </div>
 
     <script>
       document
@@ -119,26 +138,27 @@
           console.log(foodName);
           const ingredients = document.getElementById("ingredients").value;
           const instructions = document.getElementById("instructions").value;
+          const foodimage = document.getElementById("foodimage").value;
           try {
             const response = await fetch(
-              `/update-recipes/${foodName}/${ingredients}/${instructions}`,
+              `/update-recipes/${foodName}/${ingredients}/${instructions}/${foodimage}`,
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ foodName, ingredients, instructions }),
+                body: JSON.stringify({ foodName, ingredients, instructions, foodimage }),
               }
             );
             const data = await response.json();
             console.log(data);
-            renderUsers();
+            renderrecipes();
             // alert("Message is: " + data.message);
           } catch (error) {
             alert("Error updating user: " + error.message);
           }
         });
-      async function fetchUsers() {
+      async function fetchrecipes() {
         try {
           const response = await fetch("/recipes");
           if (!response.ok) {
@@ -146,15 +166,68 @@
           }
           // there could be an error getting response/fetching the endpoint
           console.log(response);
-          const users = await response.json();
+          const recipes = await response.json();
           // there could be an error parsing the response
           // console.log(users);
-          return users;
+          return recipes;
         } catch (error) {
           console.error("There was a problem");
           console.error(error);
         }
       }
+      async function renderrecipes() {
+        const tableBody = document.getElementById("recipeTableBody");
+        tableBody.innerHTML = "";
+        try {
+          const recipes = await fetchrecipes();
+          if (Array.isArray(recipes) && recipes.length > 0) {
+            users.forEach((recipe) => {
+              const row = `<tr><td> ${recipe.foodname} <br/></td><td>${recipe.ingredients} <br/></td><td>${recipe.instructions} <br/></td><td>${recipe.foodimage}<br/></td></tr>`;
+              tableBody.innerHTML += row;
+            });
+          }
+        } catch (error) {}
+      }
+
+      app.delete('/foodname/:foodimage/:ingredients/:instructions', async (req, res) => {
+    try {
+        // console.log req.params
+        // console.log(req.params);
+        // then cache returned name and email
+        // as destructured variables from params
+        // console.log(req.params.name);
+        // console.log(req.params.email);
+        const { foodname, foodimage, ingredients, instructions } = req.params
+        // initalize an empty array of 'users'
+        let recipes = [];
+        // try to read thes users.json file and cache as data
+        try {
+            const data = await fs.readFile(fooddataPath, 'utf8');
+            recipes = JSON.parse(data);
+        } catch (error) {
+            return res.status(404).send('recipe data not found')
+        }
+        // cache the userIndex based on a matching name and email
+        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions);
+        console.log(userIndex);
+        if (userIndex === -1) {
+            return res.status(404).send(' Hero not found');
+        }
+        // splice the users array with the intended delete name and email
+        users.splice(userIndex, 1);
+        try {
+            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+        } catch (error) {
+            console.error("Failed to write to database");
+        }
+        // send a success deleted message
+        res.send('Hero has been obliterated.');
+    } catch (error) {
+        res.status(500).send('There was an error obliterating the hero.');
+    }
+});
+
+
 
       // async function renderUsers() {
       //   const tableBody = document.getElementById("userTableBody");
