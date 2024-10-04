@@ -79,7 +79,7 @@ app.post('/submit-form', async (req, res) => {
 
 app.post('/posting-page', async (req, res) => {
     try {
-        const {foodname, ingredients, instructions } = req.body;
+        const {foodname, ingredients, instructions, foodimage } = req.body;
 
         // Read existing recipes from the file
         let recipes = [];
@@ -93,9 +93,9 @@ app.post('/posting-page', async (req, res) => {
         }
 
         // Find or create a recipe
-        let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions);
+        let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodimage === foodimage);
 
-        recipe = { foodname, ingredients, instructions };
+        recipe = { foodname, ingredients, instructions, foodimage};
         recipes.push(recipe);
         // Save updated recipes
         await fs.writeFile(dataPath, JSON.stringify(recipes, null, 2));
@@ -106,6 +106,32 @@ app.post('/posting-page', async (req, res) => {
     }
 });
 
+
+// app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
+//     try {
+//         const { , currentPowers } = req.params;
+//         const { newName, newPowers } = req.body;
+//         console.log('Current user:', { currentName, currentPowers });
+//         console.log('New user data:', { newName, newPowers });
+//         const data = await fs.readFile(dataPath, 'utf8');
+//         if (data) {
+//             let users = JSON.parse(data);
+//             const userIndex = users.findIndex(user => user.name === currentName && user.powers === currentPowers);
+//             console.log(userIndex);
+//             if (userIndex === -1) {
+//                 return res.status(404).json({ message: "User not found" })
+//             }
+//             users[userIndex] = { ...users[userIndex], name: newName, powers: newPowers };
+//             console.log(users);
+//             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+
+//             res.status(200).json({ message: `You sent ${newName} and ${newPowers}` });
+//         }
+//     } catch (error) {
+//         console.error('Error updating user:', error);
+//         res.status(500).send('An error occurred while updating the user.');
+//     }
+// });
 
 
 // Update user route (currently just logs and sends a response)
