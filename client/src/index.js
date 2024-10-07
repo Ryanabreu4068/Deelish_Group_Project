@@ -10,7 +10,7 @@ hamMenu.forEach(menu => {
         isClicked = !isClicked
         // console.log(isClicked)
 
-        isClicked ? sideMenu.style.transform = "translate(200%,0)" : sideMenu.style.transform = "translate(100%,0)";
+        isClicked ? sideMenu.style.transform = "translate(100%,0)" : sideMenu.style.transform = "translate(200%,0)";
     })
 });
 let result
@@ -89,4 +89,4 @@ console.log(recipes)
 const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtypes.includes(phrase)));
 
 module.exports = { filterByfoodtype }
-module.exports ={filterByfoodtype }
+module.exports = { filterByfoodtype }
