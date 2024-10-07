@@ -121,21 +121,17 @@
         const emailLogin = document.getElementById("email-login").value;
         const passwordLogin = document.getElementById("password-login").value;
         try {
-          const response = await fetch(
-            `/update-user/${userName}/${email}/${password}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ userName, email, password }),
-            }
-          );
-          const data = await response.json();
-          console.log(data);
+          const users = await fetchUsers();
+          const userExists = users.some(user => user.email === email && user.password === password);
+          if(userExists) {
+            window.location.href = "/home";
+          } else {
+            alert("invalid email or password.");
+          }
           // alert("Message is: " + data.message);
         } catch (error) {
-          alert("Error updating user: " + error.message);
+          console.error("Error during login:", error);
+          alert("there was an error during login. please try again");
         }
       });
 
