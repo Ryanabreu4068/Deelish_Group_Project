@@ -5,6 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylsheet" href="" />
     <title>Contact Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      form {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      label {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      input[type="submit"],
+      button[type="submit"] {
+        background-color: #5cb85c;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      input[type="submit"]:hover,
+      button[type="submit"]:hover {
+        background-color: #4cae4c;
+      }
+
+      input[type="image"] {
+        border: 0;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+
+      table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th {
+        background-color: #5cb85c;
+        color: white;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      footer {
+        text-align: center;
+        margin-top: 50px;
+      }
+    </style>
   </head>
   <body>
     <h1>form sign up</h1>
@@ -35,6 +121,8 @@
       <button type="submit">Login</button>
     </form>
 
+    <br />
+
     <!-- The landing page or where people post info -->
     <form action="/posting-page" method="POST" id="posting">
       <label for="foodname">Recipe name</label>
@@ -50,12 +138,8 @@
       <input type="text" name="instructions" id="instructions" />
     </form>
 
-
     <!-- Updating recipes -->
-    <form action="" method="">
-
-
-    </form>
+    <form action="" method=""></form>
 
     <!-- Displaying the recipes -->
     <div>
@@ -74,34 +158,30 @@
   </div>
 
     <script>
-      
-      document
-        .getElementById("")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const userName = document.getElementById("username").value;
-          console.log(userName);
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-          try {
-            const response = await fetch(
-              `/update-user/${userName}/${email}/${password}`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userName, email, password }),
-              }
-            );
-            const data = await response.json();
-            console.log(data);
-            renderUsers();
-            // alert("Message is: " + data.message);
-          } catch (error) {
-            alert("Error updating user: " + error.message);
-          }
-        });
+      document.getElementById("").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const userName = document.getElementById("username").value;
+        console.log(userName);
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        try {
+          const response = await fetch(
+            `/update-user/${userName}/${email}/${password}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userName, email, password }),
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+          // alert("Message is: " + data.message);
+        } catch (error) {
+          alert("Error updating user: " + error.message);
+        }
+      });
       async function fetchUsers() {
         try {
           const response = await fetch("/users");
@@ -119,42 +199,50 @@
           console.error(error);
         }
       }
+
+      // all this below is for the sign in
+
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const emailLogin = document.getElementById("email-login").value;
+        const passwordLogin = document.getElementById("password-login").value;
+        try {
+          const users = await fetchUsers();
+          const userExists = users.some(user => user.email === email && user.password === password);
+          if(userExists) {
+            window.location.href = "/home";
+          } else {
+            alert("invalid email or password.");
+          }
+          // alert("Message is: " + data.message);
+        } catch (error) {
+          console.error("Error during login:", error);
+          alert("there was an error during login. please try again");
+        }
+      });
+
       // make a find user function, for the login
       function findUserLogin(name, email, password) {
         // method: get, to retrieve data from users.json
 
-      
-
         // filter out data from submit button
-        return users.filter(user => user.city === city);
+        return users.filter((user) => user.city === city);
         var mydata = JSON.parse(data);
         // make a if else statement to check if user exist
         // throw an error, saying user doesnt exist
 
         // method: post to existingUser.json
-        // method: delete to remove user from 
+        // method: delete to remove user from
 
         // OR user localStorage or sessionStorage
         // use local storage since data will always be there
-
       }
 
-
-
-
-
-
-
-
-
-
-
-
-       document
+      document
         .getElementById("posting")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const  foodName= document.getElementById("foodname").value;
+          const foodName = document.getElementById("foodname").value;
           console.log(foodName);
           const ingredients = document.getElementById("ingredients").value;
           const instructions = document.getElementById("instructions").value;
@@ -211,39 +299,34 @@
 
       app.delete('/foodname/:foodimage/:ingredients/:instructions', async (req, res) => {
     try {
-        // console.log req.params
-        // console.log(req.params);
-        // then cache returned name and email
-        // as destructured variables from params
-        // console.log(req.params.name);
-        // console.log(req.params.email);
+  
         const { foodname, foodimage, ingredients, instructions } = req.params
-        // initalize an empty array of 'users'
+        // initalize an empty array of 'recipes'
         let recipes = [];
-        // try to read thes users.json file and cache as data
+        // try to read thes recipes.json file and cache as data
         try {
             const data = await fs.readFile(fooddataPath, 'utf8');
             recipes = JSON.parse(data);
         } catch (error) {
             return res.status(404).send('recipe data not found')
         }
-        // cache the userIndex based on a matching name and email
+        // cache the recipeIndex based on  matching variables
         const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions);
-        console.log(userIndex);
-        if (userIndex === -1) {
-            return res.status(404).send(' Hero not found');
+        console.log(recipeIndex);
+        if (recipeIndex === -1) {
+            return res.status(404).send(' recipes not found');
         }
         // splice the users array with the intended delete name and email
-        users.splice(userIndex, 1);
+        users.splice(recipeIndex, 1);
         try {
-            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+            await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
         } catch (error) {
             console.error("Failed to write to database");
         }
         // send a success deleted message
-        res.send('Hero has been obliterated.');
+        res.send('Recipe deleted');
     } catch (error) {
-        res.status(500).send('There was an error obliterating the hero.');
+        res.status(500).send('There was an error deleting the recipe.');
     }
 });
 
@@ -262,10 +345,6 @@
       //     }
       //   } catch (error) {}
       // }
-
-
-
-
 
       // document
       //   .getElementById("delete-user")

@@ -76,10 +76,34 @@ app.post('/submit-form', async (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.sendFile('index.html', { root: clientPath });
+});
+
+app.get('/recipes', async (req, res) => {
+    try {
+        const data = await fs.readFile(fooddataPath, 'utf8');
+
+        const recipes = JSON.parse(data);
+        if (!recipes) {
+            throw new Error("Error no users available");
+        }
+        res.status(200).json(recipes);
+    } catch (error) {
+        console.error("Problem getting users" + error.message);
+        res.status(500).json({ error: "Problem reading users" });
+    }
+});
+
+// Form route
+app.get('/posting-page', (req, res) => {
+    res.sendFile('pages/form.html', { root: serverPublic });
+});
+
 
 app.post('/posting-page', async (req, res) => {
     try {
-        const {foodname, ingredients, instructions, foodimage } = req.body;
+        const { foodname, ingredients, instructions, foodimage } = req.body;
 
         // Read existing recipes from the file
         let recipes = [];
@@ -95,11 +119,11 @@ app.post('/posting-page', async (req, res) => {
         // Find or create a recipe
         let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodimage === foodimage);
 
-        recipe = { foodname, ingredients, instructions, foodimage};
+        recipe = { foodname, ingredients, instructions, foodimage };
         recipes.push(recipe);
         // Save updated recipes
-        await fs.writeFile(dataPath, JSON.stringify(recipes, null, 2));
-        res.redirect('/login');
+        await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
+        res.redirect('/posting-page');
     } catch (error) {
         console.error('Error processing form:', error);
         res.status(500).send('An error occurred while processing your submission.');

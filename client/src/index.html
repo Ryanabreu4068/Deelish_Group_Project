@@ -57,7 +57,7 @@
                     <h1>Title</h1>
                 </div>
 
-                <div class="post-img">
+                <div class="post-img" style="background-image: url(./photos/food_hero_image.jpg)">
                     
                 </div>
 
@@ -69,7 +69,7 @@
                     </ul>
                 </div>
 
-                <div class="post-instuctions">
+                <div class="post-instructions">
                     <p>
                         asdfasf
                     </p>
@@ -91,16 +91,53 @@
             const hamMenu = document.querySelectorAll('.hamburger-menu');
             const sideMenu = document.getElementById('side-menu');
 
+            const postsContainer = document.querySelector('.posts-container');
+
             let isClicked = false;
 
             hamMenu.forEach(menu => {
                 menu.addEventListener("click", function(e) {
                     isClicked = !isClicked
                     // console.log(isClicked)
-    
+                    
                     isClicked? sideMenu.style.transform = "translate(50%,0)": sideMenu.style.transform = "translate(100%,0)";
                 })
-            })
+            });
+            let result
+            
+            function addPost(title, img, ingredients, instruction) {
+                let ingredientList = ingredients.map((ingredient) => {
+                    return `<li>${ingredient}</li>`;
+                }).join('');
+
+                postsContainer.innerHTML += 
+                `<div class="post">
+                <div class="title">
+                    <h1>${title}</h1>
+                </div>
+
+                <div class="post-img" style="background-image: url(${img})">
+                    
+                </div>
+
+                <div class="post-ingredients">
+                    <ul>
+                        ${ingredientList}
+                    </ul>
+                </div>
+
+                <div class="post-instructions">
+                    <p>
+                        ${instruction}
+                    </p>
+                </div>
+            </div>`;
+            }
+
+            addPost("milk", "./photos/food_hero_image.jpg", ["test", "milk", "b"], "this is a test")
+            addPost("no", "./photos/food_hero_image.jpg", ["test", "d", "a"], "this is a test")
+            
+            console.log(postsContainer.innerHTML);
       </script>
 </body>
 </html>

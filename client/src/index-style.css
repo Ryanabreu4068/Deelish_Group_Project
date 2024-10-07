@@ -99,11 +99,16 @@ background-color:var(--pink-gray);
 /* Post card */
 .posts-container {
   width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 .post {
   width: 300px;
 }
-
+.post-img {
+  width: 100%;
+  height: 200px;
+}
