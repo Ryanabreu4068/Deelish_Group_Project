@@ -46,3 +46,7 @@ hamMenu.forEach(menu => {
         isClicked ? sideMenu.style.transform = "translate(50%,0)" : sideMenu.style.transform = "translate(100%,0)";
     })
 });
+
+const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtypes.includes(phrase)));
+
+module.exports ={filterByfoodtype }
