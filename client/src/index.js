@@ -13,6 +13,7 @@ hamMenu.forEach(menu => {
         isClicked ? sideMenu.style.transform = "translate(50%,0)" : sideMenu.style.transform = "translate(100%,0)";
     })
 });
+<<<<<<< HEAD
 let result
 
 function addPost(title, img, ingredients, instruction) {
@@ -84,3 +85,9 @@ async function fetchRecipes() {
 
 
 console.log(recipes)
+=======
+
+const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtypes.includes(phrase)));
+
+module.exports ={filterByfoodtype }
+>>>>>>> 0371108db4a1079d22b114a60613c9b261a9f4fa
