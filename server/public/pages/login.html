@@ -135,6 +135,8 @@
 
       <label for="instructions">Instructions</label>
       <input type="text" name="instructions" id="instructions" />
+        <label for="foodtype">Foodtype></label>
+      <input type ="text" name="foodtype" id="foodtype" />
     </form>
 
     <!-- Updating recipes -->
@@ -252,15 +254,17 @@
           const ingredients = document.getElementById("ingredients").value;
           const instructions = document.getElementById("instructions").value;
           const foodimage = document.getElementById("foodimage").value;
+          const foodtype = documentl.getElementById("foodtype").value;
+  
           try {
             const response = await fetch(
-              `/update-recipes/${foodName}/${ingredients}/${instructions}/${foodimage}`,
+              `/update-recipes/${foodName}/${ingredients}/${instructions}/${foodimage}/${foodtype}`,
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ foodName, ingredients, instructions, foodimage }),
+                body: JSON.stringify({ foodName, ingredients, instructions, foodimage, foodtype }),
               }
             );
             const data = await response.json();
@@ -295,23 +299,18 @@
           const recipes = await fetchrecipes();
           if (Array.isArray(recipes) && recipes.length > 0) {
             users.forEach((recipe) => {
-              const row = `<tr><td> ${recipe.foodname} <br/></td><td>${recipe.ingredients} <br/></td><td>${recipe.instructions} <br/></td><td>${recipe.foodimage}<br/></td></tr>`;
+              const row = `<tr><td> ${recipe.foodname} <br/></td><td>${recipe.ingredients} <br/></td><td>${recipe.instructions} <br/></td><td>${recipe.foodimage}<br/></td><td>${recipe.foodtype}<br/></td></tr>`;
               tableBody.innerHTML += row;
             });
           }
         } catch (error) {}
       }
 
-      app.delete('/foodname/:foodimage/:ingredients/:instructions', async (req, res) => {
+      app.delete('/foodname/:foodimage/:ingredients/:instructions/foodtype', async (req, res) => {
     try {
-        // console.log req.params
-        // console.log(req.params);
-        // then cache returned name and email
-        // as destructured variables from params
-        // console.log(req.params.name);
-        // console.log(req.params.email);
-        const { foodname, foodimage, ingredients, instructions } = req.params
-        // initalize an empty array of 'users'
+  
+        const { foodname, foodimage, ingredients, instructions, foodtype } = req.params
+        // initalize an empty array of 'recipes'
         let recipes = [];
         // try to read thes users.json file and cache as data
         try {
@@ -320,14 +319,14 @@
         } catch (error) {
             return res.status(404).send('recipe data not found')
         }
-        // cache the userIndex based on a matching name and email
-        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions);
-        console.log(userIndex);
-        if (userIndex === -1) {
-            return res.status(404).send(' Hero not found');
+        // cache the recipeIndex based on  matching variables
+        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype);
+        console.log(recipeIndex);
+        if (recipeIndex === -1) {
+            return res.status(404).send(' recipes not found');
         }
         // splice the users array with the intended delete name and email
-        users.splice(userIndex, 1);
+        recipes.splice(recipeIndex, 1);
         try {
             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
         } catch (error) {
