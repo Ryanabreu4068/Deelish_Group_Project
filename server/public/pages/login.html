@@ -34,7 +34,7 @@
 
       <button type="submit">Login</button>
     </form>
-    
+
     <br />
 
     <!-- The landing page or where people post info -->
@@ -91,7 +91,6 @@
           );
           const data = await response.json();
           console.log(data);
-          renderUsers();
           // alert("Message is: " + data.message);
         } catch (error) {
           alert("Error updating user: " + error.message);
@@ -117,7 +116,7 @@
 
       // all this below is for the sign in
 
-      document.getElementById("").addEventListener("submit", async (e) => {
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
         e.preventDefault();
         const emailLogin = document.getElementById("email-login").value;
         const passwordLogin = document.getElementById("password-login").value;
@@ -125,7 +124,7 @@
           const response = await fetch(
             `/update-user/${userName}/${email}/${password}`,
             {
-              method: "PUT",
+              method: "GET",
               headers: {
                 "Content-Type": "application/json",
               },
@@ -134,7 +133,6 @@
           );
           const data = await response.json();
           console.log(data);
-          renderUsers();
           // alert("Message is: " + data.message);
         } catch (error) {
           alert("Error updating user: " + error.message);
