@@ -8,17 +8,18 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 20px;
+        background-image: url("https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1273516682.jpg?c=original")    
       }
 
       h1 {
+        border: 2px solid #333; 
+        padding: 10px; 
         text-align: center;
-        color: #333;
+        background-color: #f4f4f4; 
+        border-radius: 8px;
       }
       form {
-        background-color: #fff;
+        background-color: white;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         max-width: 600px;
@@ -93,7 +94,7 @@
     </style>
   </head>
   <body>
-    <h1>form sign up</h1>
+    <h1>Form Sign Up</h1>
 
     <!-- submitting sign up info -->
     <form action="/submit-form" method="POST" id="signup-form">
@@ -120,8 +121,6 @@
 
       <button type="submit">Login</button>
     </form>
-
-    <br />
 
     <!-- The landing page or where people post info -->
     <form action="/posting-page" method="POST" id="posting">
@@ -299,34 +298,39 @@
 
       app.delete('/foodname/:foodimage/:ingredients/:instructions', async (req, res) => {
     try {
-  
+        // console.log req.params
+        // console.log(req.params);
+        // then cache returned name and email
+        // as destructured variables from params
+        // console.log(req.params.name);
+        // console.log(req.params.email);
         const { foodname, foodimage, ingredients, instructions } = req.params
-        // initalize an empty array of 'recipes'
+        // initalize an empty array of 'users'
         let recipes = [];
-        // try to read thes recipes.json file and cache as data
+        // try to read thes users.json file and cache as data
         try {
             const data = await fs.readFile(fooddataPath, 'utf8');
             recipes = JSON.parse(data);
         } catch (error) {
             return res.status(404).send('recipe data not found')
         }
-        // cache the recipeIndex based on  matching variables
+        // cache the userIndex based on a matching name and email
         const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions);
-        console.log(recipeIndex);
-        if (recipeIndex === -1) {
-            return res.status(404).send(' recipes not found');
+        console.log(userIndex);
+        if (userIndex === -1) {
+            return res.status(404).send(' Hero not found');
         }
         // splice the users array with the intended delete name and email
-        users.splice(recipeIndex, 1);
+        users.splice(userIndex, 1);
         try {
-            await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
+            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
         } catch (error) {
             console.error("Failed to write to database");
         }
         // send a success deleted message
-        res.send('Recipe deleted');
+        res.send('Hero has been obliterated.');
     } catch (error) {
-        res.status(500).send('There was an error deleting the recipe.');
+        res.status(500).send('There was an error obliterating the hero.');
     }
 });
 
