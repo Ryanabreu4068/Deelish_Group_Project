@@ -210,7 +210,7 @@
           const users = await fetchUsers();
           const userExists = users.some(user => user.email === email && user.password === password);
           if(userExists) {
-            window.location.href = "/home";
+            window.location.href = "/index.html";
           } else {
             alert("invalid email or password.");
           }
@@ -222,12 +222,12 @@
       });
 
       // make a find user function, for the login
-      function findUserLogin(name, email, password) {
+      // function findUserLogin(name, email, password) {
         // method: get, to retrieve data from users.json
 
         // filter out data from submit button
-        return users.filter((user) => user.city === city);
-        var mydata = JSON.parse(data);
+        // return users.filter((user) => user.city === city);
+        // var mydata = JSON.parse(data);
         // make a if else statement to check if user exist
         // throw an error, saying user doesnt exist
 
@@ -236,7 +236,7 @@
 
         // OR user localStorage or sessionStorage
         // use local storage since data will always be there
-      }
+      // }
 
       document
         .getElementById("posting")
