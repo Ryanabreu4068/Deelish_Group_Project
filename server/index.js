@@ -76,6 +76,30 @@ app.post('/submit-form', async (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.sendFile('index.html', { root: clientPath });
+});
+
+app.get('/recipes', async (req, res) => {
+    try {
+        const data = await fs.readFile(fooddataPath, 'utf8');
+
+        const recipes = JSON.parse(data);
+        if (!recipes) {
+            throw new Error("Error no users available");
+        }
+        res.status(200).json(recipes);
+    } catch (error) {
+        console.error("Problem getting users" + error.message);
+        res.status(500).json({ error: "Problem reading users" });
+    }
+});
+
+// Form route
+app.get('/posting-page', (req, res) => {
+    res.sendFile('pages/form.html', { root: serverPublic });
+});
+
 
 app.post('/posting-page', async (req, res) => {
     try {
