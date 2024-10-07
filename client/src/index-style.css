@@ -56,6 +56,13 @@ nav {
 background-color:var(--pink-gray);
   padding: 10px;
 }
+.nav-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+}
 
 .button-container{
   border: 2px solid black;
@@ -66,21 +73,24 @@ background-color:var(--pink-gray);
   cursor: pointer;
   border-radius: 16px;
   text-align: center;
+  width: 33%;
+  
+
 }
 
 .hamburger-menu {
-  position: absolute;
-  border-radius: ;
+  position:top;
+  
 }
 
 .hamburger-menu {
   width: 30px;
   transform: translate(50%,-22.5%);
-  position: absolute;
+  position: relative;
 }
 
 #side-menu {
-  width: 100%;
+  width: 50%;
   height: 100%;
 
   padding: 10px;
@@ -90,7 +100,7 @@ background-color:var(--pink-gray);
   position: absolute;
   top: 0;
   bottom: 0;
-  transform: translate(100%, 0);
+  transform: translate(50%, 0);
 
   transition: all 1s;
   height: auto;
