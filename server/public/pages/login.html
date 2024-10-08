@@ -5,9 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylsheet" href="" />
     <title>Contact Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1273516682.jpg?c=original")    
+      }
+
+      h1 {
+        border: 2px solid #333; 
+        padding: 10px; 
+        text-align: center;
+        background-color: #f4f4f4; 
+        border-radius: 8px;
+      }
+      form {
+        background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Softer shadow for depth */
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      label {
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+       width: 100%;
+       padding: 12px; /* Increased padding */
+       margin-bottom: 15px;
+       border: 1px solid #ddd;
+        border-radius: 4px;
+      font-size: 1rem; /* Increase font size for readability */
+      }
+
+      input[type="submit"],
+      button[type="submit"] {
+        background-color: #5cb85c;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      input[type="submit"],
+      button[type="submit"] {
+      background-color: blue;
+      color: #fff;
+      border: none;
+      padding: 12px 20px; /* Increased padding for button */
+     cursor: pointer;
+      border-radius: 4px;
+      font-size: 1rem;
+      }
+
+      input[type="image"] {
+        border: 0;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+
+      table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th {
+        background-color: black;
+        color: white;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      footer {
+        text-align: center;
+        margin-top: 50px;
+      }
+      input[type="submit"]:hover,
+      button[type="submit"]:hover {
+      background-color: red;
+    }
+    </style>
   </head>
   <body>
-    <h1>form sign up</h1>
+    <h1>Form Sign Up</h1>
 
     <!-- submitting sign up info -->
     <form action="/submit-form" method="POST" id="signup-form">
@@ -48,6 +146,8 @@
 
       <label for="instructions">Instructions</label>
       <input type="text" name="instructions" id="instructions" />
+        <label for="foodtype">Foodtype></label>
+      <input type ="text" name="foodtype" id="foodtype" />
     </form>
 
     <!-- Updating recipes -->
@@ -165,15 +265,17 @@
           const ingredients = document.getElementById("ingredients").value;
           const instructions = document.getElementById("instructions").value;
           const foodimage = document.getElementById("foodimage").value;
+          const foodtype = documentl.getElementById("foodtype").value;
+  
           try {
             const response = await fetch(
-              `/update-recipes/${foodName}/${ingredients}/${instructions}/${foodimage}`,
+              `/update-recipes/${foodName}/${ingredients}/${instructions}/${foodimage}/${foodtype}`,
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ foodName, ingredients, instructions, foodimage }),
+                body: JSON.stringify({ foodName, ingredients, instructions, foodimage, foodtype }),
               }
             );
             const data = await response.json();
@@ -208,23 +310,18 @@
           const recipes = await fetchrecipes();
           if (Array.isArray(recipes) && recipes.length > 0) {
             users.forEach((recipe) => {
-              const row = `<tr><td> ${recipe.foodname} <br/></td><td>${recipe.ingredients} <br/></td><td>${recipe.instructions} <br/></td><td>${recipe.foodimage}<br/></td></tr>`;
+              const row = `<tr><td> ${recipe.foodname} <br/></td><td>${recipe.ingredients} <br/></td><td>${recipe.instructions} <br/></td><td>${recipe.foodimage}<br/></td><td>${recipe.foodtype}<br/></td></tr>`;
               tableBody.innerHTML += row;
             });
           }
         } catch (error) {}
       }
 
-      app.delete('/foodname/:foodimage/:ingredients/:instructions', async (req, res) => {
+      app.delete('/foodname/:foodimage/:ingredients/:instructions/foodtype', async (req, res) => {
     try {
-        // console.log req.params
-        // console.log(req.params);
-        // then cache returned name and email
-        // as destructured variables from params
-        // console.log(req.params.name);
-        // console.log(req.params.email);
-        const { foodname, foodimage, ingredients, instructions } = req.params
-        // initalize an empty array of 'users'
+  
+        const { foodname, foodimage, ingredients, instructions, foodtype } = req.params
+        // initalize an empty array of 'recipes'
         let recipes = [];
         // try to read thes users.json file and cache as data
         try {
@@ -233,14 +330,14 @@
         } catch (error) {
             return res.status(404).send('recipe data not found')
         }
-        // cache the userIndex based on a matching name and email
-        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions);
-        console.log(userIndex);
-        if (userIndex === -1) {
-            return res.status(404).send(' Hero not found');
+        // cache the recipeIndex based on  matching variables
+        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype);
+        console.log(recipeIndex);
+        if (recipeIndex === -1) {
+            return res.status(404).send(' recipes not found');
         }
         // splice the users array with the intended delete name and email
-        users.splice(userIndex, 1);
+        recipes.splice(recipeIndex, 1);
         try {
             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
         } catch (error) {
