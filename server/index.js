@@ -109,7 +109,7 @@ app.post('/posting-page', async (req, res) => {
         // Find or create a recipe
         let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodimage === foodimage && recipe.foodtype === foodtype);
 
-        recipe = { foodname, ingredients, instructions, foodimage };
+        recipe = { foodname, ingredients, instructions, foodimage, foodtype };
         recipes.push(recipe);
         // Save updated recipes
         await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
@@ -120,6 +120,43 @@ app.post('/posting-page', async (req, res) => {
     }
 });
 
+app.delete('/recipe/:foodname/:ingredients/:instructions/:foodimage/:foodtype', async (req, res) => {
+    try {
+        // console.log req.params
+        // console.log(req.params);
+        // then cache returned name and email
+        // as destructured variables from params
+        // console.log(req.params.name);
+        // console.log(req.params.email);
+        const { foodname, ingredients, instructions, foodimage, foodtype } = req.params
+        // initalize an empty array of 'users'
+        let recipes = [];
+        // try to read thes users.json file and cache as data
+        try {
+            const data = await fs.readFile(fooddataPath, 'utf8');
+            recipes = JSON.parse(data);
+        } catch (error) {
+            return res.status(404).send('recipe data not found')
+        }
+        // cache the userIndex based on a matching name and email
+        const recipeIndex = recipes.findIndex(recipe => reicpe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype && recipe.foodimage === foodimage );
+        console.log(recipeIndex);
+        if (userIndex === -1) {
+            return res.status(404).send(' recipe not found');
+        }
+        // splice the users array with the intended delete name and email
+        recipes.splice(recipeIndex, 1);
+        try {
+            await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
+        } catch (error) {
+            console.error("Failed to write to database");
+        }
+        // send a success deleted message
+        res.send('Recipe has been deleted.');
+    } catch (error) {
+        res.status(500).send('There was an error deleting the recipe.');
+    }
+});
 
 // app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
 //     try {
