@@ -48,5 +48,11 @@
     "foodname": "Alex",
     "ingredients": "example",
     "instructions": "sdfsdf"
+  },
+  {
+    "foodname": "",
+    "ingredients": "",
+    "instructions": "",
+    "foodtype": ""
   }
 ]
