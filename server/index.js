@@ -83,7 +83,7 @@ app.post('/submit-form', async (req, res) => {
         }
         // Save updated users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
-        res.redirect('/login');
+        res.redirect('/');
     } catch (error) {
         console.error('Error processing form:', error);
         res.status(500).send('An error occurred while processing your submission.');
@@ -113,7 +113,7 @@ app.post('/posting-page', async (req, res) => {
         recipes.push(recipe);
         // Save updated recipes
         await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
-        res.redirect('/posting-page');
+        res.redirect('/');
     } catch (error) {
         console.error('Error processing form:', error);
         res.status(500).send('An error occurred while processing your submission.');
