@@ -97,7 +97,7 @@ nav {
   position: absolute;
   top: 0;
   bottom: 0;
-  transform: translate(100%, 0);
+  transform: translate(200%, 0);
 
   transition: all 1s;
   height: auto;
@@ -113,12 +113,21 @@ nav {
   flex-direction: column;
 }
 .post {
-  width: 300px;
+  width: 320px;
   box-shadow: 0px 0px 10px var(--black);
+  -webkit-clip-path: inset(0.7px -5px 0.1px -5px);
+
+  padding: 10px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 25px;
 }
 .post-img {
   background-size: 100%;
   background-repeat: no-repeat;
+  background-position: center center;
   width: 100%;
-  height: 200px;
+  height: 150px;
 }
