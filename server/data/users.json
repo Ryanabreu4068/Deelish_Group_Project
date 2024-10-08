@@ -28,5 +28,10 @@
     "username": "asdf",
     "email": "fds",
     "password": "df"
+  },
+  {
+    "username": "",
+    "email": "",
+    "password": ""
   }
 ]

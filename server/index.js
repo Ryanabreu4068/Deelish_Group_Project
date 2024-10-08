@@ -14,6 +14,7 @@ const fooddataPath = path.join(__dirname, 'data', 'recipes.json');
 const serverPublic = path.join(__dirname, 'public');
 // Middleware setup
 app.use(express.static(clientPath)); // Serve static files from client directory
+app.use(express.static(serverPublic));
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(express.json()); // Parse JSON bodies
 
@@ -22,6 +23,10 @@ app.use(express.json()); // Parse JSON bodies
 // Home route
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: clientPath });
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile('pages/login.html', { root: serverPublic });
 });
 
 app.get('/users', async (req, res) => {
@@ -93,7 +98,7 @@ app.post('/submit-form', async (req, res) => {
 
 app.post('/posting-page', async (req, res) => {
     try {
-        const { foodname, ingredients, instructions, foodimage } = req.body;
+        const { foodname, ingredients, instructions, foodimage, foodtype } = req.body;
 
         // Read existing recipes from the file
         let recipes = [];
@@ -107,7 +112,7 @@ app.post('/posting-page', async (req, res) => {
         }
 
         // Find or create a recipe
-        let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodimage === foodimage);
+        let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodimage === foodimage && recipe.foodtype === foodtype);
 
         recipe = { foodname, ingredients, instructions, foodimage };
         recipes.push(recipe);
