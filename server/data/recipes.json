@@ -59,5 +59,11 @@
     "ingredients": "example ingredient",
     "instructions": "this is an example",
     "foodtype": "asdfasdfasdf"
+  },
+  {
+    "foodname": "",
+    "ingredients": "",
+    "instructions": "",
+    "foodtype": ""
   }
 ]
