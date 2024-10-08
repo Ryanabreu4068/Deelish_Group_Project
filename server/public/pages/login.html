@@ -19,9 +19,9 @@
         border-radius: 8px;
       }
       form {
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Softer shadow for depth */
         max-width: 600px;
         margin: 20px auto;
         padding: 20px;
@@ -37,11 +37,12 @@
       input[type="text"],
       input[type="password"],
       input[type="email"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
+       width: 100%;
+       padding: 12px; /* Increased padding */
+       margin-bottom: 15px;
+       border: 1px solid #ddd;
         border-radius: 4px;
+      font-size: 1rem; /* Increase font size for readability */
       }
 
       input[type="submit"],
@@ -55,9 +56,15 @@
         font-size: 1rem;
       }
 
-      input[type="submit"]:hover,
-      button[type="submit"]:hover {
-        background-color: #4cae4c;
+      input[type="submit"],
+      button[type="submit"] {
+      background-color: #5cb85c;
+      color: #fff;
+      border: none;
+      padding: 12px 20px; /* Increased padding for button */
+     cursor: pointer;
+      border-radius: 4px;
+      font-size: 1rem;
       }
 
       input[type="image"] {
@@ -80,7 +87,7 @@
       }
 
       th {
-        background-color: #5cb85c;
+        background-color: #e41e1e;
         color: white;
       }
 
@@ -91,6 +98,10 @@
         text-align: center;
         margin-top: 50px;
       }
+      input[type="submit"]:hover,
+      button[type="submit"]:hover {
+      background-color: red;
+    }
     </style>
   </head>
   <body>
