@@ -109,7 +109,7 @@ app.post('/posting-page', async (req, res) => {
         // Find or create a recipe
         let recipe = recipes.find(recipe => recipe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodimage === foodimage && recipe.foodtype === foodtype);
 
-        recipe = { foodname, ingredients, instructions, foodimage };
+        recipe = { foodname, ingredients, instructions, foodimage, foodtype };
         recipes.push(recipe);
         // Save updated recipes
         await fs.writeFile(fooddataPath, JSON.stringify(recipes, null, 2));
