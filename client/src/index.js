@@ -1,3 +1,5 @@
+// const { error } = require("console");
+
 const hamMenu = document.querySelectorAll('.hamburger-menu');
 const sideMenu = document.getElementById('side-menu');
 
@@ -16,9 +18,15 @@ hamMenu.forEach(menu => {
 let result
 
 function addPost(title, img, ingredients, instruction) {
-    let ingredientList = ingredients.map((ingredient) => {
-        return `<li>${ingredient}</li>`;
-    }).join('');
+    let ingredientList;
+    try {
+        ingredientList = ingredients.map((ingredient) => {
+            return `<li>${ingredient}</li>`;
+        }).join('');
+    } catch(error) {
+        console.error("variable is not an array")
+        ingredientList = `<li>${ingredients}<li>`
+    }
 
     postsContainer.innerHTML +=
         `<div class="post">
@@ -66,27 +74,46 @@ async function fetchRecipes() {
     try {
         const response = await fetch("/recipes");
         if (!response.ok) {
-            throw new Error("Error fetching users. Response not ok");
+            throw new Error("Error fetching recipes. Response not ok");
         }
         // there could be an error getting response/fetching the endpoint
         console.log(response);
-        const users = await response.json();
+        const recipes = await response.json();
         // there could be an error parsing the response
-        // console.log(users);
-        return users;
+        // console.log(recipes);
+        
+        return recipes;
     } catch (error) {
         console.error("There was a problem");
         console.error(error);
     }
 }
 
+async function renderRecipes() {
+    try {
+        const recipes = await fetchRecipes();
+        console.log(recipes);
+
+        const titles = recipes.map(recipe => recipe.foodname);
+        const ingredients = recipes.map(recipe => recipe.ingredients);
+        const instruction = recipes.map(recipe => recipe.instructions)
+
+        for (let i = 0; i < recipes.length; i++) {
+            addPost(titles[i], './photos/food_hero_image.jpg', ingredients[i], instruction[i])
+        }
+    } catch (error) {
+        console.error("There was a problem");
+        console.error(error);
+    }
+}
+
+renderRecipes()
 
 
 
-console.log(recipes)
 
 
 const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtypes.includes(phrase)));
 
-module.exports = { filterByfoodtype }
-module.exports = { filterByfoodtype }
+// module.exports = { filterByfoodtype }
+// module.exports = { filterByfoodtype }

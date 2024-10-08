@@ -38,6 +38,20 @@ app.get('/users', async (req, res) => {
         res.status(500).json({ error: "Problem reading users" });
     }
 });
+app.get('/recipes', async (req, res) => {
+    try {
+        const data = await fs.readFile(fooddataPath, 'utf8');
+
+        const recipes = JSON.parse(data);
+        if (!recipes) {
+            throw new Error("Error no recipes available");
+        }
+        res.status(200).json(recipes);
+    } catch (error) {
+        console.error("Problem getting recipes" + error.universe);
+        res.status(500).json({ error: "Problem reading recipes" });
+    }
+});
 
 // Form route
 app.get('/login', (req, res) => {
