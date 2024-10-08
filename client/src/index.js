@@ -23,7 +23,7 @@ function addPost(title, img, ingredients, instruction) {
         ingredientList = ingredients.map((ingredient) => {
             return `<li>${ingredient}</li>`;
         }).join('');
-    } catch(error) {
+    } catch (error) {
         console.error("variable is not an array")
         ingredientList = `<li>${ingredients}<li>`
     }
@@ -81,7 +81,7 @@ async function fetchRecipes() {
         const recipes = await response.json();
         // there could be an error parsing the response
         // console.log(recipes);
-        
+
         return recipes;
     } catch (error) {
         console.error("There was a problem");

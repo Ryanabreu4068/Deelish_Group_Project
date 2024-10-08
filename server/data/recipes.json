@@ -50,9 +50,14 @@
     "instructions": "sdfsdf"
   },
   {
-    "foodname": "",
-    "ingredients": "",
-    "instructions": "",
-    "foodtype": ""
+    "foodname": "asdf",
+    "ingredients": "asdf",
+    "instructions": "asdf"
+  },
+  {
+    "foodname": "example 100",
+    "ingredients": "example ingredient",
+    "instructions": "this is an example",
+    "foodtype": "asdfasdfasdf"
   }
 ]
