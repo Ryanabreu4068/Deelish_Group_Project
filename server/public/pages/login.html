@@ -237,9 +237,9 @@
         ingredientsContainer.innerHTML += "<input type='text' name='ingredients' contenteditable='true' class='ingredients' />"
       })
 
+// gets information from from signup-form / submit-form
       document.getElementById("").addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const userName = document.getElementById("username").value;
         console.log(userName);
         const email = document.getElementById("email").value;
@@ -285,29 +285,29 @@
 
       // all this below is for the sign in
 
-      document.getElementById("").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const emailLogin = document.getElementById("email-login").value;
-        const passwordLogin = document.getElementById("password-login").value;
-        try {
-          const response = await fetch(
-            `/update-user/${userName}/${email}/${password}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ userName, email, password }),
-            }
-          );
-          const data = await response.json();
-          console.log(data);
-          // renderUsers();
-          // alert("Message is: " + data.message);
-        } catch (error) {
-          alert("Error updating user: " + error.message);
-        }
-      });
+      // document.getElementById("").addEventListener("submit", async (e) => {
+      //   e.preventDefault();
+      //   const emailLogin = document.getElementById("email-login").value;
+      //   const passwordLogin = document.getElementById("password-login").value;
+      //   try {
+      //     const response = await fetch(
+      //       `/update-user/${userName}/${email}/${password}`,
+      //       {
+      //         method: "PUT",
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //         },
+      //         body: JSON.stringify({ userName, email, password }),
+      //       }
+      //     );
+      //     const data = await response.json();
+      //     console.log(data);
+      //     // renderUsers();
+      //     // alert("Message is: " + data.message);
+      //   } catch (error) {
+      //     alert("Error updating user: " + error.message);
+      //   }
+      // });
 
       // update form / user
       document
@@ -361,7 +361,6 @@
         console.error("There was a problem:", error.message);
     }
 });
-
 
         // login form
         document
