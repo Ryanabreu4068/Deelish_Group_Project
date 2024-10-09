@@ -153,14 +153,14 @@
     </form>
 
     <!-- deleting users -->
-    <!-- <h2>Delete User</h2>
+    <h2>Delete User</h2>
     <form id="delete-user">
       <label for="delete-name">name:</label>
       <input type="text" id="delete-name" /><br /><br />
       <label for="delete-email">email:</label>
       <input type="text" id="delete-email" /><br /><br />
       <button type="submit">Delete User</button>
-    </form> -->
+    </form>
 
     <!-- shows users created
     <h1>Show Users</h1>
@@ -268,6 +268,8 @@
         }
       }
 
+      // NOTE: everything below is for signin
+
       // all this below is for the sign in
 
       document.getElementById("").addEventListener("submit", async (e) => {
@@ -293,6 +295,94 @@
           alert("Error updating user: " + error.message);
         }
       });
+
+      // update form / user
+      document
+        .getElementById("updateForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const currentName = document.getElementById("currentName").value;
+          const currentEmail = document.getElementById("currentEmail").value;
+          const newName = document.getElementById("newName").value;
+          const newEmail = document.getElementById("newEmail").value;
+          try {
+            const response = await fetch(
+              `/update-user/${currentName}/${currentEmail}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ newName, newEmail }),
+              }
+            );
+            const data = await response.json();
+            console.log(data);
+            renderUsers();
+            // alert("Message is: " + data.message);
+          } catch (error) {
+            alert("Error updating user: " + error.message);
+          }
+        });
+
+        // delete user
+        document
+        .getElementById("delete-user")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("delete-name").value;
+          const email = document.getElementById("delete-email").value;
+          try {
+            const response = await fetch(`/user/${name}/${email}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              throw new Error("Problem fetching delete endpoint");
+            }
+            const data = await response.text();
+            // console.log(data);
+            renderUsers();
+          } catch (error) {
+            console.error(
+              "there was a problem, skill issue" +
+                error.message +
+                "GG bro. Keep mogging."
+            );
+          }
+        });
+
+        // login form
+        document
+        .getElementById("signInForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("signInName").value;
+          const email = document.getElementById("signInEmail").value;
+
+          try {
+            const response = await fetch("/sign-in", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name, email }),
+            });
+
+            if (!response.ok) {
+              throw new Error("User not found");
+            }
+
+            const user = await response.json();
+
+            // Save user to local storage
+            localStorage.setItem("currentUser", JSON.stringify(user));
+
+            // Redirect to user-info page
+            window.location.href = "/user-info";
+          } catch (error) {
+            alert("Sign-In Failed: " + error.message);
+          }
+        });
 
       // make a find user function, for the login
       function findUserLogin(name, email, password) {
