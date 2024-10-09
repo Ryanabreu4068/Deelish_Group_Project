@@ -102,6 +102,9 @@
       button[type="submit"]:hover {
       background-color: red;
     }
+
+
+
     </style>
   </head>
   <body>
@@ -153,7 +156,7 @@
     </form>
 
     <!-- deleting users -->
-    <h2>Delete User</h2>
+    <h1>Delete User</h1>
     <form id="delete-user">
       <label for="delete-name">name:</label>
       <input type="text" id="delete-name" /><br /><br />
@@ -177,6 +180,7 @@
 
 
     <!-- The landing page or where people post info -->
+    <h1>Post a recipe</h1>
     <form action="/posting-page" method="POST" id="posting">
       <label for="foodname">Recipe name</label>
       <input type="text" name="foodname" contenteditable="true" id="foodname" />
@@ -199,20 +203,27 @@
     </form>
 
     <!-- Updating recipes -->
-    <form action="" method=""></form>
+    <form id ="delete-recipe" >
+      <label for="delete-foodname">What recipe do you want to erase from existance? </label>
+      <input type="text" id="delete-foodname"/><br /> <br />
+
+
+    </form>
 
     <!-- Displaying the recipes -->
-    <div>
+    <!-- <div>
     <h1></h1>
     <table id="recipeTable">
       <thead>
       
       </thead>
-      <tbody id="recipeTableBody" style="border-spacing: 85px 10px;">
+      <tbody id="recipeTableBody" style="border-spacing: 85px 10px;"> -->
         <!-- data of recipes will be here-->
-      </tbody>
+      <!-- </tbody>
     </table>
-  </div>
+  </div> -->
+
+  
 
     <script>
       // adding more ingredients
@@ -462,38 +473,29 @@
         } catch (error) {}
       }
 
-      app.delete('/foodname/:foodimage/:ingredients/:instructions/foodtype', async (req, res) => {
-    try {
-  
-        const { foodname, foodimage, ingredients, instructions, foodtype } = req.params
-        // initalize an empty array of 'recipes'
-        let recipes = [];
-        // try to read thes users.json file and cache as data
-        try {
-            const data = await fs.readFile(fooddataPath, 'utf8');
-            recipes = JSON.parse(data);
-        } catch (error) {
-            return res.status(404).send('recipe data not found')
+       document.getElementById("delete-recipe")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const recipes = await fetchrecipes();
+        const foodname = document.getElementById("delete-foodname").value;
+        
+        const titles = recipes.find(recipe => recipe.foodname);
+       
+        try{
+          const response = await fetch(`/recipes/${foodname}`, {
+            method: "DELETE",
+          });
+          if(!response.ok) {
+            throw new Error('Error with network');
+          }
+          const data = await response.text();
+          renderUsers();
+          console.log(data);
+        } catch(error) {
+          console.error("something went worng" + error.message);
         }
-        // cache the recipeIndex based on  matching variables
-        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype);
-        console.log(recipeIndex);
-        if (recipeIndex === -1) {
-            return res.status(404).send(' recipes not found');
-        }
-        // splice the users array with the intended delete name and email
-        recipes.splice(recipeIndex, 1);
-        try {
-            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
-        } catch (error) {
-            console.error("Failed to write to database");
-        }
-        // send a success deleted message
-        res.send('Hero has been obliterated.');
-    } catch (error) {
-        res.status(500).send('There was an error obliterating the hero.');
-    }
-});
+      });
 
 
 
