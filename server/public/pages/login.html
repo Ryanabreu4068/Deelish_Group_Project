@@ -203,7 +203,9 @@
     </form>
 
     <!-- Updating recipes -->
+
     <form id ="delete-recipe" >
+      <h1>Delete a recipe</h1>
       <label for="delete-foodname">What recipe do you want to erase from existance? </label>
       <input type="text" id="delete-foodname"/><br /> <br />
 
@@ -316,8 +318,8 @@
           const currentEmail = document.getElementById("currentEmail").value;
           const newName = document.getElementById("newName").value;
           const newEmail = document.getElementById("newEmail").value;
-          const currentPassword = document.getElementById("currentPassword");
-          const newPassword = document.getElementById("newPassword");
+          const currentPassword = document.getElementById("currentPassword").value;
+          const newPassword = document.getElementById("newPassword").value;
           try {
             const response = await fetch(
               `/update-user/${currentName}/${currentEmail}/${currentPassword}`,
@@ -346,20 +348,20 @@
           const name = document.getElementById("delete-name").value;
           const email = document.getElementById("delete-email").value;
           try {
-            const response = await fetch(`/user/${name}/${email}`, {
+            const response = await fetch(`/user/${username}/${email}`, {
               method: "DELETE",
             });
             if (!response.ok) {
-              throw new Error("Problem fetching delete endpoint");
+              throw new Error("Problem fetching delete");
             }
             const data = await response.text();
             // console.log(data);
             // renderUsers();
           } catch (error) {
             console.error(
-              "there was a problem, skill issue" +
+              "there was a problem," +
                 error.message +
-                "GG bro. Keep mogging."
+                "welp."
             );
           }
         });
@@ -482,10 +484,11 @@
         const recipes = await fetchrecipes();
         const foodname = document.getElementById("delete-foodname").value;
         
-        const titles = recipes.find(recipe => recipe.foodname);
+        const titles = recipes.find(foodname);
+        
        
         try{
-          const response = await fetch(`/recipes/${foodname}`, {
+          const response = await fetch(`/recipes/${titles}`, {
             method: "DELETE",
           });
           if(!response.ok) {
