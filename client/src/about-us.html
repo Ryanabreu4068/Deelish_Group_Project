@@ -3,15 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About us</title>
+    <title>Website Layout</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .logo {
+            background-image: url("./photos/Logo.png"); 
+            background-size: contain;
+            background-position: center;
+            height:20%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            padding: 20px;
+            transition: transform 0.3s;
+            background-repeat: no-repeat;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .cards-container {
+            display: flex;
+            justify-content: space-around; 
+            align-items: flex-start; 
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        @media (max-width: 800px) {
+            .logo {
+                height: 50%; 
+            }
+        }
+
+        @media (max-width: 500px) {
+            .logo {
+                height: 40%; 
+                font-size: 2em; 
+            }
+        }
+
+
+        .card {
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 15%; 
+            margin: 10px; 
+            padding: 20px;
+            text-align: center;
+        }
+        .about-text-container{ 
+            border: 2px solid black;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            margin: 20px;
+            border-radius: 5px;
+        }
+   </style>
 </head>
 <body>
- <div class="card">
-    <img src="./photos/Logo.png" alt="self-portrait" style="width: 100%">
-    <div class="container">
-        <h4><b>Alex Espinoza</b></h4>
-        <p>Front end specialist/Design lead</p>
+    
+    <div class="logo">
+        
     </div>
- </div>
+    <!-- <nav>
+        <svg class="hamburger-menu" width="72" height="61" viewBox="0 0 72 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="24.2069" width="72" height="12.4138" fill="#FF3D3D"/>
+            <rect x="5" y="51" width="62" height="10" fill="#FF3D3D"/>
+            <rect x="5" width="62" height="10" fill="#FF3D3D"/>
+        </svg>
+    </nav>
+
+    <div id="side-menu"> 
+        <svg class="hamburger-menu" id="star-burger" width="72" height="68" viewBox="0 0 72 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="27.9011" width="72" height="12.4138" fill="#FF3D3D"/>
+            <rect x="22.3003" width="72" height="9.93103" transform="rotate(60 22.3003 0)" fill="#FF3D3D"/>
+            <rect x="13.6997" y="62.3538" width="72" height="9.93103" transform="rotate(-60 13.6997 62.3538)" fill="#FF3D3D"/>
+        </svg> 
+        <div class="login-buttons">
+          <a href="/pages/login.html" id="login-button-container1">Log in</a>
+            <br>
+            <a href="register.html" class="login-button-container" id="login-button-container2">Sign Up</a>
+            <br>
+        </div> -->
+    </div>
+    <div class="about-text-container"> <p>THIS IS TEXT ABOUT OUR WEBSITE THIS IS TEXT ABOUT OUR WEBSITE THIS IS TEXT ABOUT OUR WEBSITE THIS IS TEXT ABOUT OUR WEBSITE THIS IS TEXT ABOUT OUR WEBSITE THIS IS TEXT ABOUT OUR WEBSITE</p></div>
+    <div class="cards-container">
+        <div class="card">
+            <h4>Alex E</h4>
+            <p>Some content</p>
+        </div>
+        <div class="card">
+            <h4>Ryan A</h4>
+            <p>Some content</p>
+        </div>
+        <div class="card">
+            <h4>Brock M</h4>
+            <p>Some content</p>
+        </div>
+        <div class="card">
+            <h4>Haziel F</h4>
+            <p>Some content</p>
+        </div>
+        <div class="card">
+            <h4>Andrei B</h4>
+            <p>Some content</p>
+        </div>
+    </div>
 </body>
 </html>
