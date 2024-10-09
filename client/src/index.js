@@ -124,7 +124,7 @@ async function renderRecipes() {
 renderRecipes()
 
 
-const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtype.includes(phrase)));
+// const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtype.includes(phrase)));
 
 
 
