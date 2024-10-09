@@ -356,8 +356,8 @@
         .getElementById("login-form")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const name = document.getElementById("signInName").value;
-          const email = document.getElementById("signInEmail").value;
+          const password = document.getElementById("password-login").value;
+          const email = document.getElementById("email-login").value;
 
           try {
             const response = await fetch("/sign-in", {
@@ -365,7 +365,7 @@
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ name, email }),
+              body: JSON.stringify({ password, email }),
             });
 
             if (!response.ok) {
