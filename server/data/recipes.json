@@ -50,8 +50,32 @@
     "instructions": "sdfsdf"
   },
   {
-    "foodname": "",
-    "ingredients": "",
-    "instructions": ""
+    "foodname": "asdf",
+    "ingredients": "asdf",
+    "instructions": "asdf"
+  },
+  {
+    "foodname": "example 100",
+    "ingredients": "example ingredient",
+    "instructions": "this is an example",
+    "foodtype": "asdfasdfasdf"
+  },
+  {
+    "foodname": "dskgh",
+    "ingredients": "hlk;iohoihpuioh",
+    "instructions": "khuiotgyuot",
+    "foodtype": "chinese food"
+  },
+  {
+    "foodname": "dskgh",
+    "ingredients": "hlk;iohoihpuioh",
+    "instructions": "khuiotgyuot",
+    "foodtype": "chinese food"
+  },
+  {
+    "foodname": "dskgh",
+    "ingredients": "hlk;iohoihpuioh",
+    "instructions": "khuiotgyuot",
+    "foodtype": "chinese food"
   }
 ]
