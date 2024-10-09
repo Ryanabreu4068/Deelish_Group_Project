@@ -9,13 +9,13 @@ let mediaQuery = window.matchMedia("(max-width: 768px)");
 
 let isClicked = false;
 
-hamMenu.forEach(menu => {        
+hamMenu.forEach(menu => {
     menu.addEventListener("click", function (e) {
         isClicked = !isClicked
-       // console.log(isClicked)
-       if(mediaQuery.matches) {
+        //    console.log(isClicked)
+        if (mediaQuery.matches) {
             isClicked ? sideMenu.style.transform = "translate(0%,0)" : sideMenu.style.transform = "translate(100%,0)";
-            
+
         } else {
             isClicked ? sideMenu.style.transform = "translate(100%,0)" : sideMenu.style.transform = "translate(200%,0)";
         }
@@ -123,8 +123,16 @@ async function renderRecipes() {
 
 renderRecipes()
 
+const searchBar = document.getElementById('search-bar');
+const search = document.getElementById('Search').value;
 
 const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtype.includes(phrase)));
+
+searchBar.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("clicked")
+    filterByfoodtype(search.value);
+})
 
 
 
