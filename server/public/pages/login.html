@@ -335,20 +335,20 @@
           const name = document.getElementById("delete-name").value;
           const email = document.getElementById("delete-email").value;
           try {
-            const response = await fetch(`/user/${name}/${email}`, {
+            const response = await fetch(`/user/${username}/${email}`, {
               method: "DELETE",
             });
             if (!response.ok) {
-              throw new Error("Problem fetching delete endpoint");
+              throw new Error("Problem fetching delete");
             }
             const data = await response.text();
             // console.log(data);
             // renderUsers();
           } catch (error) {
             console.error(
-              "there was a problem, skill issue" +
+              "there was a problem," +
                 error.message +
-                "GG bro. Keep mogging."
+                "welp."
             );
           }
         });
