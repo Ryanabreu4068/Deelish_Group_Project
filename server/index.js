@@ -25,10 +25,6 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', { root: clientPath });
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile('pages/login.html', { root: serverPublic });
-});
-
 app.get('/users', async (req, res) => {
     try {
         const data = await fs.readFile(dataPath, 'utf8');

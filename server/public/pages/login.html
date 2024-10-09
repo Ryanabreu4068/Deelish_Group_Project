@@ -341,30 +341,27 @@
         });
 
         // delete user
-        document
-        .getElementById("delete-user")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const name = document.getElementById("delete-name").value;
-          const email = document.getElementById("delete-email").value;
-          try {
-            const response = await fetch(`/user/${username}/${email}`, {
-              method: "DELETE",
-            });
-            if (!response.ok) {
-              throw new Error("Problem fetching delete");
-            }
-            const data = await response.text();
-            // console.log(data);
-            // renderUsers();
-          } catch (error) {
-            console.error(
-              "there was a problem," +
-                error.message +
-                "welp."
-            );
-          }
+        document.getElementById("delete-user").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("delete-name").value;
+    const email = document.getElementById("delete-email").value;
+    try {
+        const response = await fetch(`/user/${name}/${email}`, {  // Corrected username to name
+            method: "DELETE",
         });
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Delete Error:", errorText);
+            throw new Error("Problem fetching delete");
+        }
+        const data = await response.text(); // You can handle response if needed
+        console.log("User deleted:", data);
+        // Optionally refresh the user list
+    } catch (error) {
+        console.error("There was a problem:", error.message);
+    }
+});
+
 
         // login form
         document
