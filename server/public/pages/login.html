@@ -316,8 +316,8 @@
           const currentEmail = document.getElementById("currentEmail").value;
           const newName = document.getElementById("newName").value;
           const newEmail = document.getElementById("newEmail").value;
-          const currentPassword = document.getElementById("currentPassword");
-          const newPassword = document.getElementById("newPassword");
+          const currentPassword = document.getElementById("currentPassword").value;
+          const newPassword = document.getElementById("newPassword").value;
           try {
             const response = await fetch(
               `/update-user/${currentName}/${currentEmail}/${currentPassword}`,
