@@ -124,11 +124,14 @@ async function renderRecipes() {
 renderRecipes()
 
 const searchBar = document.getElementById('search-bar');
+const search = document.getElementById('Search').value;
 
 const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtype.includes(phrase)));
 
-searchBar.addEventListener("submit", (e) => { 
-    
+searchBar.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("clicked")
+    filterByfoodtype(search.value);
 })
 
 
