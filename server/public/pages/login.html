@@ -102,9 +102,6 @@
       button[type="submit"]:hover {
       background-color: red;
     }
-
-
-
     </style>
   </head>
   <body>
@@ -156,7 +153,7 @@
     </form>
 
     <!-- deleting users -->
-    <h1>Delete User</h1>
+    <h2>Delete User</h2>
     <form id="delete-user">
       <label for="delete-name">name:</label>
       <input type="text" id="delete-name" /><br /><br />
@@ -180,7 +177,6 @@
 
 
     <!-- The landing page or where people post info -->
-    <h1>Post a recipe</h1>
     <form action="/posting-page" method="POST" id="posting">
       <label for="foodname">Recipe name</label>
       <input type="text" name="foodname" contenteditable="true" id="foodname" />
@@ -203,29 +199,20 @@
     </form>
 
     <!-- Updating recipes -->
-
-    <form id ="delete-recipe" >
-      <h1>Delete a recipe</h1>
-      <label for="delete-foodname">What recipe do you want to erase from existance? </label>
-      <input type="text" id="delete-foodname"/><br /> <br />
-
-
-    </form>
+    <form action="" method=""></form>
 
     <!-- Displaying the recipes -->
-    <!-- <div>
+    <div>
     <h1></h1>
     <table id="recipeTable">
       <thead>
       
       </thead>
-      <tbody id="recipeTableBody" style="border-spacing: 85px 10px;"> -->
+      <tbody id="recipeTableBody" style="border-spacing: 85px 10px;">
         <!-- data of recipes will be here-->
-      <!-- </tbody>
+      </tbody>
     </table>
-  </div> -->
-
-  
+  </div>
 
     <script>
       // adding more ingredients
@@ -318,17 +305,15 @@
           const currentEmail = document.getElementById("currentEmail").value;
           const newName = document.getElementById("newName").value;
           const newEmail = document.getElementById("newEmail").value;
-          const currentPassword = document.getElementById("currentPassword").value;
-          const newPassword = document.getElementById("newPassword").value;
           try {
             const response = await fetch(
-              `/update-user/${currentName}/${currentEmail}/${currentPassword}`,
+              `/update-user/${currentName}/${currentEmail}`,
               {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ newName, newEmail, newPassword }),
+                body: JSON.stringify({ newName, newEmail }),
               }
             );
             const data = await response.json();
@@ -341,26 +326,30 @@
         });
 
         // delete user
-        document.getElementById("delete-user").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("delete-name").value;
-    const email = document.getElementById("delete-email").value;
-    try {
-        const response = await fetch(`/user/${name}/${email}`, {  // Corrected username to name
-            method: "DELETE",
+        document
+        .getElementById("delete-user")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("delete-name").value;
+          const email = document.getElementById("delete-email").value;
+          try {
+            const response = await fetch(`/user/${name}/${email}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              throw new Error("Problem fetching delete endpoint");
+            }
+            const data = await response.text();
+            // console.log(data);
+            // renderUsers();
+          } catch (error) {
+            console.error(
+              "there was a problem, skill issue" +
+                error.message +
+                "GG bro. Keep mogging."
+            );
+          }
         });
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Delete Error:", errorText);
-            throw new Error("Problem fetching delete");
-        }
-        const data = await response.text(); // You can handle response if needed
-        console.log("User deleted:", data);
-        // Optionally refresh the user list
-    } catch (error) {
-        console.error("There was a problem:", error.message);
-    }
-});
 
         // login form
         document
@@ -473,30 +462,38 @@
         } catch (error) {}
       }
 
-       document.getElementById("delete-recipe")
-      .addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const recipes = await fetchrecipes();
-        const foodname = document.getElementById("delete-foodname").value;
-        
-        const titles = recipes.find(foodname);
-        
-       
-        try{
-          const response = await fetch(`/recipes/${titles}`, {
-            method: "DELETE",
-          });
-          if(!response.ok) {
-            throw new Error('Error with network');
-          }
-          const data = await response.text();
-          renderUsers();
-          console.log(data);
-        } catch(error) {
-          console.error("something went worng" + error.message);
+      app.delete('/foodname/:foodimage/:ingredients/:instructions/foodtype', async (req, res) => {
+    try {
+  
+        const { foodname, foodimage, ingredients, instructions, foodtype } = req.params
+        // initalize an empty array of 'recipes'
+        let recipes = [];
+        // try to read thes users.json file and cache as data
+        try {
+            const data = await fs.readFile(fooddataPath, 'utf8');
+            recipes = JSON.parse(data);
+        } catch (error) {
+            return res.status(404).send('recipe data not found')
         }
-      });
+        // cache the recipeIndex based on  matching variables
+        const recipeIndex = recipes.findIndex(recipe => recipe.foodname === foodname && recipe.foodimage === foodimage && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype);
+        console.log(recipeIndex);
+        if (recipeIndex === -1) {
+            return res.status(404).send(' recipes not found');
+        }
+        // splice the users array with the intended delete name and email
+        recipes.splice(recipeIndex, 1);
+        try {
+            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+        } catch (error) {
+            console.error("Failed to write to database");
+        }
+        // send a success deleted message
+        res.send('Hero has been obliterated.');
+    } catch (error) {
+        res.status(500).send('There was an error obliterating the hero.');
+    }
+});
 
 
 
