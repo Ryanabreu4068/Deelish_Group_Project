@@ -5,15 +5,21 @@ const sideMenu = document.getElementById('side-menu');
 
 const postsContainer = document.querySelector('.posts-container');
 
+let mediaQuery = window.matchMedia("(max-width: 768px)");
+
 let isClicked = false;
 
-hamMenu.forEach(menu => {
+hamMenu.forEach(menu => {        
     menu.addEventListener("click", function (e) {
         isClicked = !isClicked
-        // console.log(isClicked)
-
-        isClicked ? sideMenu.style.transform = "translate(100%,0)" : sideMenu.style.transform = "translate(200%,0)";
-    })
+       // console.log(isClicked)
+       if(mediaQuery.matches) {
+            isClicked ? sideMenu.style.transform = "translate(0%,0)" : sideMenu.style.transform = "translate(100%,0)";
+            
+        } else {
+            isClicked ? sideMenu.style.transform = "translate(100%,0)" : sideMenu.style.transform = "translate(200%,0)";
+        }
+    });
 });
 let result
 
@@ -38,11 +44,17 @@ function addPost(title, img, ingredients, instruction) {
                     
                 </div>
 
+                
+                <h3>Ingredients</h3>
+                
+
                 <div class="post-ingredients">
                     <ul>
                         ${ingredientList}
                     </ul>
                 </div>
+
+                <h3>Instructions</h3>
 
                 <div class="post-instructions">
                     <p>
@@ -95,16 +107,18 @@ async function renderRecipes() {
         console.log(recipes);
 
         const titles = recipes.map(recipe => recipe.foodname);
+        const foodImgs = recipes.map(recipe => recipe.foodimage)
         const ingredients = recipes.map(recipe => recipe.ingredients);
         const instruction = recipes.map(recipe => recipe.instructions)
 
         for (let i = 0; i < recipes.length; i++) {
-            addPost(titles[i], './photos/food_hero_image.jpg', ingredients[i], instruction[i])
+            addPost(titles[i], foodImgs[i], ingredients[i], instruction[i])
         }
     } catch (error) {
         console.error("There was a problem");
         console.error(error);
     }
+    console.log(postsContainer.innerHTML)
 }
 
 renderRecipes()
@@ -114,5 +128,4 @@ const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLo
 
 
 
-
-module.exports = { filterByfoodtype }
+// module.exports = { filterByfoodtype };

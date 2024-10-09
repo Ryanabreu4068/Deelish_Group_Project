@@ -144,11 +144,12 @@
       <input type="text" id="newName" required /><br /><br />
       <label for="newEmail">New email:</label>
       <input type="email" id="newEmail" required /><br /><br />
-      <button type="submit">Update User</button>
       <label for="currentPassword">Current Password:</label>
       <input type="text" id="currentPassword">
       <label for="newPassword">New password</label>
       <input type="text" id="newPassword">
+
+      <button type="submit">Update User</button>
     </form>
 
     <!-- deleting users -->
@@ -161,7 +162,7 @@
       <button type="submit">Delete User</button>
     </form>
 
-    shows users created
+    <!-- shows users created
     <h1>Show Users</h1>
     <table id="usersTable">
       <thead>
@@ -170,7 +171,7 @@
           <th>User Email</th>
         </tr>
       </thead>
-      <tbody id="userTableBody">
+      <tbody id="userTableBody"> -->
         <!-- data of users will be rendered here -->
       </tbody>
 
@@ -180,15 +181,20 @@
       <label for="foodname">Recipe name</label>
       <input type="text" name="foodname" contenteditable="true" id="foodname" />
 
-      <label for="foodimage"></lable>
-      <input type="image" id = "foodimage" name = "foodimage" src="img_submit.gif" contenteditable="true" alt="Submit" width="48" height="48">
+      <label for="foodimage">food imgage link</lable>
+      <input type="text" id="foodimage" name="foodimage" contenteditable="true" alt="Submit" width="48" height="48"> <br>
 
       <label for="ingredients">Ingredients</label>
-      <input type="text" name="ingredients" contenteditable="true" id="ingredients" />
+      <div id="ingredients-container">
+        <input type="text" name="ingredients" contenteditable="true" class="ingredients" />
+      </div>
 
-      <label for="instructions">Instructions</label>
-      <input type="text" name="instructions" contenteditable="true" id="instructions" />
-        <label for="foodtype">Foodtype</label>
+      <button id="add-more-ingredients">add more ingredients</button><br>
+
+      <label for="instructions">Instructions</label><br>  
+      <textarea name="instructions" contenteditable="true" id="instructions" rows="4" cols="50"></textarea><br> 
+
+      <label for="foodtype">Foodtype</label>
       <input type ="text" name="foodtype"  id="foodtype" />
     </form>
 
@@ -209,8 +215,18 @@
   </div>
 
     <script>
+      // adding more ingredients
+      ingredientsContainer = document.getElementById('ingredients-container')
+      addMoreIngredientsBTN = document.getElementById('add-more-ingredients');
+
+      addMoreIngredientsBTN.addEventListener('mousedown', e => {
+        e.preventDefault();
+        ingredientsContainer.innerHTML += "<input type='text' name='ingredients' contenteditable='true' class='ingredients' />"
+      })
+
       document.getElementById("").addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const userName = document.getElementById("username").value;
         console.log(userName);
         const email = document.getElementById("email").value;
@@ -228,7 +244,7 @@
           );
           const data = await response.json();
           console.log(data);
-          renderUsers();
+          // renderUsers();
           // alert("Message is: " + data.message);
         } catch (error) {
           alert("Error updating user: " + error.message);
@@ -252,6 +268,8 @@
         }
       }
 
+      // NOTE: everything below is for signin
+
       // all this below is for the sign in
 
       document.getElementById("").addEventListener("submit", async (e) => {
@@ -271,12 +289,100 @@
           );
           const data = await response.json();
           console.log(data);
-          renderUsers();
+          // renderUsers();
           // alert("Message is: " + data.message);
         } catch (error) {
           alert("Error updating user: " + error.message);
         }
       });
+
+      // update form / user
+      document
+        .getElementById("updateForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const currentName = document.getElementById("currentName").value;
+          const currentEmail = document.getElementById("currentEmail").value;
+          const newName = document.getElementById("newName").value;
+          const newEmail = document.getElementById("newEmail").value;
+          try {
+            const response = await fetch(
+              `/update-user/${currentName}/${currentEmail}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ newName, newEmail }),
+              }
+            );
+            const data = await response.json();
+            console.log(data);
+            // renderUsers();
+            // alert("Message is: " + data.message);
+          } catch (error) {
+            alert("Error updating user: " + error.message);
+          }
+        });
+
+        // delete user
+        document
+        .getElementById("delete-user")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("delete-name").value;
+          const email = document.getElementById("delete-email").value;
+          try {
+            const response = await fetch(`/user/${name}/${email}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              throw new Error("Problem fetching delete endpoint");
+            }
+            const data = await response.text();
+            // console.log(data);
+            // renderUsers();
+          } catch (error) {
+            console.error(
+              "there was a problem, skill issue" +
+                error.message +
+                "GG bro. Keep mogging."
+            );
+          }
+        });
+
+        // login form
+        document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("signInName").value;
+          const email = document.getElementById("signInEmail").value;
+
+          try {
+            const response = await fetch("/sign-in", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ name, email }),
+            });
+
+            if (!response.ok) {
+              throw new Error("User not found");
+            }
+
+            const user = await response.json();
+
+            // Save user to local storage
+            localStorage.setItem("currentUser", JSON.stringify(user));
+
+            // Redirect to user-info page
+            window.location.href = "/index.html";
+          } catch (error) {
+            alert("Sign-In Failed: " + error.message);
+          }
+        });
 
       // make a find user function, for the login
       function findUserLogin(name, email, password) {
@@ -301,7 +407,7 @@
           e.preventDefault();
           const foodName = document.getElementById("foodname").value;
           console.log(foodName);
-          const ingredients = document.getElementById("ingredients").value;
+          const ingredients = document.querySelectorAll(".ingredients").value;
           const instructions = document.getElementById("instructions").value;
           const foodimage = document.getElementById("foodimage").value;
           const foodtype = documentl.getElementById("foodtype").value;

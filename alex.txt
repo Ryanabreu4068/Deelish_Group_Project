@@ -28,3 +28,10 @@ remembering basic css and html.
 
 try to communicate changes.
 
+10/8
+one topic that i revisted is dom muniputation.
+
+one real world reference is instagram, it like how the posts look.
+
+The post are to small to see so im trying to fix that.
+

@@ -96,6 +96,8 @@ nav {
   width: 50%;
   height: 100%;
 
+  z-index: 1;
+
   padding: 10px;
 
   background-color: var(--pink-gray);
@@ -108,6 +110,12 @@ nav {
   transition: all 1s;
   height: auto;
 }
+@media screen and (max-width: 768px) {
+  #side-menu {
+    width: 100%;
+    transform: translate(100%, 0);
+  }
+}
 
 /* Post card */
 .posts-container {
@@ -119,9 +127,9 @@ nav {
   flex-direction: column;
 }
 .post {
-  width: 320px;
-  box-shadow: 0px 0px 10px var(--black);
-  -webkit-clip-path: inset(0.7px -5px 0.1px -5px);
+  width: 500px;
+  /* box-shadow: 0px 0px 10px var(--black);
+  -webkit-clip-path: inset(-1px -5px -1px -5px); */
 
   padding: 10px;
 
@@ -129,11 +137,18 @@ nav {
   justify-content: center;
   flex-direction: column;
   gap: 25px;
+
+  border-bottom: #4c4c4c solid 2px;
 }
 .post-img {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
   width: 100%;
-  height: 150px;
+  height: 300px;
+}
+@media screen and (max-width: 514px) {
+  .post {
+    width: 100%;
+  }
 }
