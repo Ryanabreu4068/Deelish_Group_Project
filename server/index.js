@@ -25,10 +25,6 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', { root: clientPath });
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile('pages/login.html', { root: serverPublic });
-});
-
 app.get('/users', async (req, res) => {
     try {
         const data = await fs.readFile(dataPath, 'utf8');
@@ -59,7 +55,7 @@ app.get('/recipes', async (req, res) => {
 });
 
 // Form route
-app.get('/login', async (req, res) => {
+app.get('/sign-in', async (req, res) => {
     res.sendFile('pages/login.html', { root: serverPublic });
     try {
         const { name, email } = req.body;
