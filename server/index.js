@@ -59,8 +59,92 @@ app.get('/recipes', async (req, res) => {
 });
 
 // Form route
-app.get('/login', (req, res) => {
+app.get('/login', async (req, res) => {
     res.sendFile('pages/login.html', { root: serverPublic });
+    try {
+        const { name, email } = req.body;
+
+        // Read users from the data file
+        const data = await fs.readFile(dataPath, 'utf8');
+        const users = JSON.parse(data);
+
+        // Find the user
+        const user = users.find(u => u.name === name && u.email === email);
+
+        if (user) {
+            // Return the user object
+            res.status(200).json(user);
+        } else {
+            // User not found
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error during sign-in:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+// updates user route
+app.put('/update-user/:currentName/:currentEmail', async (req, res) => {
+    try {
+        const { currentName, currentEmail } = req.params;
+        const { newName, newEmail } = req.body;
+        console.log('Current user:', { currentName, currentEmail });
+        console.log('New user data:', { newName, newEmail });
+        const data = await fs.readFile(dataPath, 'utf8');
+        if (data) {
+            let users = JSON.parse(data);
+            const userIndex = users.findIndex(user => user.name === currentName && user.email === currentEmail);
+            console.log(userIndex);
+            if (userIndex === -1) {
+                return res.status(404).json({ message: "User not found" })
+            }
+            users[userIndex] = { ...users[userIndex], name: newName, email: newEmail };
+            console.log(users);
+            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+
+            res.status(200).json({ message: `You sent ${newName} and ${newEmail}` });
+        }
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).send('An error occurred while updating the user.');
+    }
+});
+
+// delete user
+app.delete('/user/:name/:email', async (req, res) => {
+    try {
+        const { name, email } = req.params;
+        // initalize an empty array of 'users'
+        let users = [];
+        // try to read the users.json file and cache as data
+        try {
+            const data = await fs.readFile(dataPath, 'utf8');
+            // parse the data
+            users = JSON.parse(data);
+        } catch (error) {
+            return res.status(404).send('File data not found');
+        }
+        // cache the userIndex based on a matching name and email
+        const userIndex = users.findIndex(user => user.name === name && user.email === email);
+        // handle a situation where the index does NOT exist
+        if (userIndex === -1) {
+            return res.status(404).send('User not found');
+        }
+        // splice the users array with the intended delete name and email
+        users.splice(userIndex, 1);
+        console.log(userIndex);
+        console.log(users);
+        // try to write the users array back to the file
+        try {
+            await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
+        } catch (error) {
+            console.error('Failed to write to database');
+        }
+        res.send('successfully deleted user');
+        // send a success deleted message
+    } catch (error) {
+        res.status(500).send("There was a problem");
+    }
 });
 
 // Form submission route
