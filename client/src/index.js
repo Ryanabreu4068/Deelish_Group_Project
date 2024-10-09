@@ -44,11 +44,17 @@ function addPost(title, img, ingredients, instruction) {
                     
                 </div>
 
+                
+                <h3>Ingredients</h3>
+                
+
                 <div class="post-ingredients">
                     <ul>
                         ${ingredientList}
                     </ul>
                 </div>
+
+                <h3>Instructions</h3>
 
                 <div class="post-instructions">
                     <p>
@@ -101,23 +107,24 @@ async function renderRecipes() {
         console.log(recipes);
 
         const titles = recipes.map(recipe => recipe.foodname);
+        const foodImgs = recipes.map(recipe => recipe.foodimage)
         const ingredients = recipes.map(recipe => recipe.ingredients);
         const instruction = recipes.map(recipe => recipe.instructions)
 
         for (let i = 0; i < recipes.length; i++) {
-            addPost(titles[i], './photos/food_hero_image.jpg', ingredients[i], instruction[i])
+            addPost(titles[i], foodImgs[i], ingredients[i], instruction[i])
         }
     } catch (error) {
         console.error("There was a problem");
         console.error(error);
     }
+    console.log(postsContainer.innerHTML)
 }
 
 renderRecipes()
 
 
 const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtype.includes(phrase)));
-
 
 
 

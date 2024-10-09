@@ -180,15 +180,20 @@
       <label for="foodname">Recipe name</label>
       <input type="text" name="foodname" contenteditable="true" id="foodname" />
 
-      <label for="foodimage"></lable>
-      <input type="image" id = "foodimage" name = "foodimage" src="img_submit.gif" contenteditable="true" alt="Submit" width="48" height="48">
+      <label for="foodimage">food imgage link</lable>
+      <input type="text" id="foodimage" name="foodimage" contenteditable="true" alt="Submit" width="48" height="48"> <br>
 
       <label for="ingredients">Ingredients</label>
-      <input type="text" name="ingredients" contenteditable="true" id="ingredients" />
+      <div id="ingredients-container">
+        <input type="text" name="ingredients" contenteditable="true" class="ingredients" />
+      </div>
 
-      <label for="instructions">Instructions</label>
-      <input type="text" name="instructions" contenteditable="true" id="instructions" />
-        <label for="foodtype">Foodtype</label>
+      <button id="add-more-ingredients">add more ingredients</button><br>
+
+      <label for="instructions">Instructions</label><br>  
+      <textarea name="instructions" contenteditable="true" id="instructions" rows="4" cols="50"></textarea><br> 
+
+      <label for="foodtype">Foodtype</label>
       <input type ="text" name="foodtype"  id="foodtype" />
     </form>
 
@@ -209,8 +214,18 @@
   </div>
 
     <script>
+      // adding more ingredients
+      ingredientsContainer = document.getElementById('ingredients-container')
+      addMoreIngredientsBTN = document.getElementById('add-more-ingredients');
+
+      addMoreIngredientsBTN.addEventListener('mousedown', e => {
+        e.preventDefault();
+        ingredientsContainer.innerHTML += "<input type='text' name='ingredients' contenteditable='true' class='ingredients' />"
+      })
+
       document.getElementById("").addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const userName = document.getElementById("username").value;
         console.log(userName);
         const email = document.getElementById("email").value;
@@ -301,7 +316,7 @@
           e.preventDefault();
           const foodName = document.getElementById("foodname").value;
           console.log(foodName);
-          const ingredients = document.getElementById("ingredients").value;
+          const ingredients = document.querySelectorAll(".ingredients").value;
           const instructions = document.getElementById("instructions").value;
           const foodimage = document.getElementById("foodimage").value;
           const foodtype = documentl.getElementById("foodtype").value;
