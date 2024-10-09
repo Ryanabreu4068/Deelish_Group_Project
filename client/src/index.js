@@ -5,15 +5,21 @@ const sideMenu = document.getElementById('side-menu');
 
 const postsContainer = document.querySelector('.posts-container');
 
+let mediaQuery = window.matchMedia("(max-width: 768px)");
+
 let isClicked = false;
 
-hamMenu.forEach(menu => {
+hamMenu.forEach(menu => {        
     menu.addEventListener("click", function (e) {
         isClicked = !isClicked
-        // console.log(isClicked)
-
-        isClicked ? sideMenu.style.transform = "translate(100%,0)" : sideMenu.style.transform = "translate(200%,0)";
-    })
+       // console.log(isClicked)
+       if(mediaQuery.matches) {
+            isClicked ? sideMenu.style.transform = "translate(0%,0)" : sideMenu.style.transform = "translate(100%,0)";
+            
+        } else {
+            isClicked ? sideMenu.style.transform = "translate(100%,0)" : sideMenu.style.transform = "translate(200%,0)";
+        }
+    });
 });
 let result
 
@@ -115,4 +121,4 @@ const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLo
 
 
 
-module.exports = { filterByfoodtype }
+// module.exports = { filterByfoodtype };
