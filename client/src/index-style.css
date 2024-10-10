@@ -151,7 +151,7 @@ nav {
 .links:hover {
   text-decoration: none;
   color: white;
-  background-color: var(--gray);
+  background-color: var(--red);
 
 }
 
