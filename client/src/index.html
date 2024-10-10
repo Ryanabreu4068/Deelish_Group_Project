@@ -33,16 +33,24 @@
     </nav>
 
     <div id="side-menu"> 
-        <svg class="hamburger-menu" id="star-burger" width="72" height="68" viewBox="0 0 72 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect y="27.9011" width="72" height="12.4138" fill="#FF3D3D"/>
-            <rect x="22.3003" width="72" height="9.93103" transform="rotate(60 22.3003 0)" fill="#FF3D3D"/>
-            <rect x="13.6997" y="62.3538" width="72" height="9.93103" transform="rotate(-60 13.6997 62.3538)" fill="#FF3D3D"/>
-        </svg> 
-        <div class="login-buttons">
-            <a href="login" id="login-button-container1">Log in</a>
-            <br>
-            <a href="login" class="login-button-container" id="login-button-container2">Sign Up</a>
-            <br>
+        <div class="left row">
+            <svg class="hamburger-menu" id="star-burger" width="72" height="68" viewBox="0 0 72 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="27.9011" width="72" height="12.4138" fill="#FF3D3D"/>
+                <rect x="22.3003" width="72" height="9.93103" transform="rotate(60 22.3003 0)" fill="#FF3D3D"/>
+                <rect x="13.6997" y="62.3538" width="72" height="9.93103" transform="rotate(-60 13.6997 62.3538)" fill="#FF3D3D"/>
+            </svg> 
+        </div>
+        <h2 class="side-menu-header">NOT SIGNED IN</h2>
+        <div class="row gap">
+            <a href="login"><button class="button">log in</button></a>
+            <a href="login"><button class="button">sign up</button></a>
+        </div>
+
+        <h2 class="side-menu-header">NAV BAR</h2>
+        <div class="column">
+            <a class="links" href="login">Account</a>
+            <a class="links" href="login">Post</a>
+            <a class="links" href="aboutus">About us</a>
         </div>
     </div>
 
