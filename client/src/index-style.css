@@ -62,9 +62,6 @@ nav {
   align-items: center;
   display: flex;
   flex-flow: row-reverse;
-  
-  
-  
 }
 
 .login-button-container{
@@ -78,8 +75,6 @@ nav {
   text-align: center;
   width: 33%;
   background-color: transparent;
-  
-
 }
 
 .hamburger-menu {
