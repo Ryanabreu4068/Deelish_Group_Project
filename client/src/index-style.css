@@ -134,8 +134,8 @@ nav {
   border: solid var(--red) 5px;
 
   background-color: transparent;
-  
-  transition: background-color ease-in 1s;
+
+  transition: background-color ease-in 0.5s;
 }
 .button:hover {
   background-color: var(--red);
@@ -152,7 +152,6 @@ nav {
   text-decoration: none;
   color: white;
   background-color: var(--red);
-
 }
 
 /* Post card */

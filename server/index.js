@@ -80,7 +80,7 @@ app.get('/login', async (req, res) => {
     }
 });
 app.get('/aboutus', (req, res) => {
-    res.sendFile('user.html', { root: clientPath });
+    res.sendFile('about-us.html', { root: clientPath });
 });
 
 // updates user route
@@ -228,7 +228,7 @@ app.delete('/recipe/:foodname/:ingredients/:instructions/:foodimage/:foodtype', 
             return res.status(404).send('recipe data not found')
         }
         // cache the userIndex based on a matching name and email
-        const recipeIndex = recipes.findIndex(recipe => reicpe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype && recipe.foodimage === foodimage );
+        const recipeIndex = recipes.findIndex(recipe => reicpe.foodname === foodname && recipe.ingredients === ingredients && recipe.instructions === instructions && recipe.foodtype === foodtype && recipe.foodimage === foodimage);
         console.log(recipeIndex);
         if (userIndex === -1) {
             return res.status(404).send(' recipe not found');
