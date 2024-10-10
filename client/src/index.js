@@ -124,14 +124,38 @@ async function renderRecipes() {
 renderRecipes()
 
 const searchBar = document.getElementById('search-bar');
-const search = document.getElementById('Search').value;
 
-const filterByfoodtype = phrase => recipes.filter(recipe => recipe.foodtype.toLowerCase().some(foodtype => foodtype.includes(phrase)));
+async function filterByfoodtype(phrase) {
+    let recipes = await fetchRecipes()
+    console.log(recipes)
+    
+    foundRecipes = recipes.filter(recipe => recipe.foodtype == phrase);
+    console.log(foundRecipes)
+
+    const titles = foundRecipes.map(recipe => recipe.foodname);
+    const foodImgs = foundRecipes.map(recipe => recipe.foodimage)
+    const ingredients = foundRecipes.map(recipe => recipe.ingredients);
+    const instruction = foundRecipes.map(recipe => recipe.instructions)
+
+    postsContainer.innerHTML = ""
+
+    for (let i = 0; i < foundRecipes.length; i++) {
+        addPost(titles[i], foodImgs[i], ingredients[i], instruction[i])
+    }
+}
 
 searchBar.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("clicked")
-    filterByfoodtype(search.value);
+    let search = document.getElementById('Search').value;
+    
+    if (search == "") {
+        postsContainer.innerHTML = '';
+        renderRecipes();
+    } else {
+        // console.log("serching")
+        // console.log(search)
+        filterByfoodtype(search);
+    }
 })
 
 
